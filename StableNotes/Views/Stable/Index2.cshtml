@@ -1,0 +1,48 @@
+﻿@model IEnumerable<StableNotes.Models.Stable>
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+   <script type="text/javascript" >
+       $(function () {
+           $.getJSON("/stable/getlist", null, function (json) {
+               var stables = JSON.parse(json);
+               alert("Tallien määrä: " + stables.length);
+               var html = "";
+               for (var index = 0; index < stables.length; index++) {
+                   html += "<tr>" +
+                     "<td>" + stables[index].StableId + "</td>" +
+                     "<td>" + stables[index].Name + "</td>" +
+                      "<td>" + stables[index].Registernumber + "</td>" +
+                      "<td>" + stables[index].Note + "</td>" +
+                      "<td>" + stables[index].Created + "</td>" + "</tr>\r\n";
+               }
+               $("#stableList tbody").html(html);
+           });
+
+       });
+
+    </script>
+
+    }
+<h2>Talli, Dynaaminen tapa Ajaxilla</h2>
+
+
+<table class="table table-striped" id="stableList">
+    <thead>
+        <tr>
+            <th>Tallin Id</th>
+            <th>Tallin nimi</th>
+            <th>Numero</th>
+            <th>Huomio</th>
+            <th>Luotu</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+   
+</table>
+
+@*<p>Talleja yhteensä; @Model.Count().</p>*@

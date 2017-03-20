@@ -1,0 +1,36 @@
+﻿@model IEnumerable<StableNotes.Models.Stable>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Talli</h2>
+
+<p>Kontrollerista : <strong>@ViewBag.Tallinnimi</strong></p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tallin Id</th>
+            <th>Tallin nimi</th>
+            <th>Numero</th>
+            <th>Huomio</th>
+            <th>Luotu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (StableNotes.Models.Stable stab in Model)
+        {
+            <tr>
+                <td>@stab.StableId</td>
+                <td>@stab.Name</td>
+                <td>@stab.Registernumber</td>
+                <td>@stab.Note</td>
+                <td>@stab.Created</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+<p>Talleja yhteensä; @Model.Count().</p>

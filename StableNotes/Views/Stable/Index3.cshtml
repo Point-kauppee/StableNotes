@@ -1,0 +1,184 @@
+﻿@model IEnumerable<StableNotes.Models.Stable>
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+   <script type="text/javascript" >
+       function päivitäTallilistaus() {
+           $.getJSON("/stable/getlist", null, function (json) {
+               var stables = JSON.parse(json);
+               alert("Tallien määrä: " + stables.length);
+               var html = "";
+               for (var index = 0; index < stables.length; index++) {
+                   html += "<tr>" +
+                       "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                     "<td>" + stables[index].StableId + "</td>" +
+                     "<td>" + stables[index].Name + "</td>" +
+                      "<td>" + stables[index].Registernumber + "</td>" +
+                      "<td>" + stables[index].Note + "</td>" +
+                      "<td>" + stables[index].Created + "</td>" +
+                      "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" + "</tr>\r\n";
+               }
+               $("#stableList tbody").html(html);
+
+               //tietojen muokkaus
+
+               $(".glyphicon-pencil").click(function () {
+                   //etsitään tiedot klikatulta riviltä
+                   var stableId = $(this).parent().parent().next().text();
+                   //alert(stableId);
+                   //haetaan tiedot id:n perusteella
+                   $.getJSON("/stable/getsinglestable/" + stableId, null, function (json2) {
+                       var stable = JSON.parse(json2);
+                       //kopioidaan tiedot ikkunaan               
+
+                       $("#stableModal_StabId").val(stable.StableId);
+                       $("#stableModal_Name").val(stable.Name);
+                       $("#stableModal_Regist").val(stable.Registernumber);
+                       $("#stableModal_Note").val(stable.Note);
+                       $("#stableModal_Creat").val(stable.Created);
+                       //Näytetään ikkuna
+                       $("#stableModalTitle").text("Muokkaa tallia");
+                       $("#stableModalDialog").modal("show");
+
+
+                   });
+
+               });
+
+               //tietojen poisto
+
+               $(".glyphicon-trash").click(function () {
+                   //etsitään tiedot klikatulta riviltä
+                   var stableId = $(this).parent().parent().prev().prev().prev().prev().prev().text();
+
+                   var ok = confirm("Haluatko varmasti poistaa tallin " + stableId + "?");
+
+                   if (ok == true) {
+
+                       //haetaan tiedot id:n perusteella
+                       $.getJSON("/stable/delete/" + stableId, null, function (status) {
+                           if (status == true) {
+                               alert("Tallitieto on poistettu!");
+                               päivitäTallilistaus();
+                           }
+                           else {
+                               alert("Poisto ei onnistunut!");
+                           }
+
+
+                       });
+
+                   }
+
+
+
+               });
+
+           });
+       }
+
+       // sivun alustaminen
+           $(function () {
+               päivitäTallilistaus();
+
+               $("#addNewStableButton").click(function () {
+                    //Tyhjennetään ikkunan tiedot
+                   $("#stableModal_StabId").val("(uusi)");
+                   $("#stableModal_Name").val("");
+                   $("#stableModal_Regist").val("");
+                   $("#stableModal_Note").val("");
+                   $("#stableModal_Creat").val("");
+
+                   $("#stableModalTitle").text("Lisää uusi talli");
+                   $("#stableModalDialog").modal("show");
+               });
+
+               $("#stableModalSaveButton").click(function () {
+                   //luetaan syötetyt kentät
+                   var details = {
+                       StableId: $("#stableModal_StabId").val(),
+                       Name: $("#stableModal_Name").val(),
+                       Registernumber: $("#stableModal_Regist").val(),
+                       Note: $("#stableModal_Note").val(),
+                       Created: $("#stableModal_Creat").val()
+                   };
+
+                   $.post("/stable/update/", details, function (status) {
+                       if (status == true) {
+                           alert("Tallennus OK!");
+
+                           $("#stableModalDialog").modal("hide");
+                           päivitäTallilistaus();
+                       }
+                       else {
+                           alert("Tallennus ei onnistunut!");
+                       }
+                   });
+
+               });
+
+           });
+
+</script>
+}
+   
+<h2>Talli, Dynaaminen muokkaus Ajaxilla</h2>
+
+<button class="btn btn-primary" id="addNewStableButton">Lisää uusi</button>
+
+<table class="table table-striped" id="stableList">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Tallin Id</th>
+            <th>Tallin nimi</th>
+            <th>Numero</th>
+            <th>Huomio</th>
+            <th>Luotu</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+   
+</table>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="stableModalDialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span id="stableModalTitle">Muokkaa tallia</span></h4>
+            </div>
+            <div class="modal-body">
+                @*<p>One fine body&hellip;</p>*@
+                <div class="row">
+                    <div class="col-md-3">Tallin Id</div>
+                    <div class="col-md-6"><input class="form-control" id="stableModal_StabId" readonly/></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Tallin nimi</div>
+                    <div class="col-md-6"><input class="form-control" id="stableModal_Name" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Tallin rekisterinumero</div>
+                    <div class="col-md-6"><input class="form-control" id="stableModal_Regist" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Muuta</div>
+                    <div class="col-md-6"><input class="form-control" id="stableModal_Note" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Tapahtuma luotu</div>
+                    <div class="col-md-6"><input class="form-control" id="stableModal_Creat" /></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                <button type="button" class="btn btn-primary" id="stableModalSaveButton">Tallenna</button>
+            </div>
+        </div>
+    </div>
+</div>

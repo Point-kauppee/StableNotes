@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2212f42527a543f494ea7e17b5100089" Name="Diagram1">
+        <EntityTypeShape EntityType="kauppeedbModel.Action" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Address" Width="1.5" PointX="3.75" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Care" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Food" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Foodsupplement" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Hoofing" Width="1.5" PointX="0.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Horse" Width="1.5" PointX="0.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Medicine" Width="1.5" PointX="0.75" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Person" Width="1.5" PointX="1.5" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Phone" Width="1.5" PointX="3.75" PointY="33.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Stable" Width="1.5" PointX="1.5" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.Training" Width="1.5" PointX="0.75" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="kauppeedbModel.User" Width="1.5" PointX="1.5" PointY="26" IsExpanded="true" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_2" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_3" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_4" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_5" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_6" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Address_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Address_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Care_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Horse_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Horse_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Horse_ToTable_2" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Person_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Phone_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_User_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="kauppeedbModel.FK_Stable_ToTable" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
