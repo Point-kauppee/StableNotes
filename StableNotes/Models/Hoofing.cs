@@ -20,7 +20,7 @@ namespace StableNotes.Models
             this.Action = new HashSet<Action>();
         }
     
-        public int HoofingId { get; set; }
+        public string HoofingId { get; set; }
         public string Frontshoe { get; set; }
         public string Frontsize { get; set; }
         public string Frontangle { get; set; }

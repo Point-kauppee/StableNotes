@@ -200,6 +200,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HorseController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StableController.cs" />
     <Compile Include="Global.asax.cs">
@@ -213,6 +214,9 @@
       <DependentUpon>StableNotesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Care.cs">
+      <DependentUpon>StableNotesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Event.cs">
       <DependentUpon>StableNotesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Food.cs">
@@ -256,9 +260,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StableNotesModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Training.cs">
-      <DependentUpon>StableNotesModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>StableNotesModel.tt</DependentUpon>
     </Compile>
@@ -294,6 +295,7 @@
     <Content Include="Models\StableNotesModel.edmx.diagram">
       <DependentUpon>StableNotesModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\StableNotes - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\StableNotes.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -345,9 +347,12 @@
     <Content Include="Views\Stable\Index.cshtml" />
     <Content Include="Views\Stable\Index2.cshtml" />
     <Content Include="Views\Stable\Index3.cshtml" />
+    <Content Include="Views\Horse\Index.cshtml" />
+    <Content Include="Views\Horse\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

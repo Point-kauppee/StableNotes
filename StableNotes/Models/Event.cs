@@ -12,16 +12,11 @@ namespace StableNotes.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Address
+    public partial class Event
     {
-        public string AddressId { get; set; }
-        public string Streetname { get; set; }
-        public string Postnumber { get; set; }
-        public string Community { get; set; }
-        public string PersonId { get; set; }
-        public string StableId { get; set; }
-    
-        public virtual Person Person { get; set; }
-        public virtual Stable Stable { get; set; }
+        public int id { get; set; }
+        public string text { get; set; }
+        public string eventstart { get; set; }
+        public string eventend { get; set; }
     }
 }

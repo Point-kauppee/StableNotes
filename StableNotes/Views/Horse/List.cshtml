@@ -1,0 +1,46 @@
+﻿@model IEnumerable<StableNotes.Models.Horse>
+@{
+    ViewBag.Title = "List";
+}
+
+@section scripts{
+    <script type="text/javascript">
+       $(function () {
+           $.getJSON("/horse/list", null, function (json) {
+               var horses = JSON.parse(json);
+               alert("hevosten määrä: " + horses.length);
+               var html = "";
+               for (var index = 0; index < horses.length; index++) {
+                   html += "<tr>" +
+                     "<td>" + horses[index].HorseId + "</td>" +
+                     "<td>" + horses[index].Name + "</td>" +
+                      "<td>" + horses[index].Registernumber + "</td>" +
+                      "<td>" + horses[index].Note + "</td>" +
+                      "<td>" +horses[index].Created + "</td>" + "</tr>\r\n";
+               }
+               $("#horseList tbody").html(html);
+           });
+
+       });
+
+    </script>
+
+}
+<h2>Talli, Dynaaminen tapa Ajaxilla</h2>
+
+
+<table class="table table-striped" id="horseList">
+    <thead>
+        <tr>
+            <th>Hevosen Id</th>
+            <th>Hevosen nimi</th>
+            <th>Numero</th>
+            <th>Huomio</th>
+            <th>Luotu</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+
+</table>
+
+@*<p>Talleja yhteensä; @Model.Count().</p>*@

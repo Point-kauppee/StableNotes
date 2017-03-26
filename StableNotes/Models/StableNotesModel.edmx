@@ -9,45 +9,56 @@
           <Key>
             <PropertyRef Name="ActionId" />
           </Key>
-          <Property Name="ActionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Date" Type="date" />
           <Property Name="Start" Type="datetime" />
           <Property Name="End" Type="datetime" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
-          <Property Name="HorseId" Type="int" />
-          <Property Name="HoofingId" Type="int" />
-          <Property Name="FoodsupplementId" Type="int" />
-          <Property Name="FoodId" Type="int" />
-          <Property Name="CareId" Type="int" />
-          <Property Name="MedicineId" Type="int" />
-          <Property Name="TrainingId" Type="int" />
+          <Property Name="HorseId" Type="nvarchar" MaxLength="10" />
+          <Property Name="HoofingId" Type="nvarchar" MaxLength="10" />
+          <Property Name="FoodsupplementId" Type="nvarchar" MaxLength="10" />
+          <Property Name="FoodId" Type="nvarchar" MaxLength="10" />
+          <Property Name="CareId" Type="nvarchar" MaxLength="10" />
+          <Property Name="MedicineId" Type="nvarchar" MaxLength="10" />
+          <Property Name="TrainingId" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
           </Key>
-          <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddressId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Streetname" Type="nvarchar" MaxLength="50" />
           <Property Name="Postnumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Community" Type="nvarchar" MaxLength="50" />
-          <Property Name="PersonId" Type="int" />
+          <Property Name="PersonId" Type="nvarchar" MaxLength="10" />
           <Property Name="StableId" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Care">
           <Key>
             <PropertyRef Name="CareId" />
           </Key>
-          <Property Name="CareId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CareId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="Quantity" Type="nvarchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
-          <Property Name="PersonId" Type="int" />
+          <Property Name="PersonId" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="text" Type="nvarchar" MaxLength="50" />
+          <Property Name="eventstart" Type="nvarchar" MaxLength="10" />
+          <Property Name="eventend" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Food">
           <Key>
             <PropertyRef Name="FoodId" />
           </Key>
-          <Property Name="FoodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="Quantity" Type="nvarchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
@@ -58,7 +69,7 @@
           <Key>
             <PropertyRef Name="FoodsupplementId" />
           </Key>
-          <Property Name="FoodsupplementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodsupplementId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="Quantity" Type="nvarchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
@@ -70,7 +81,7 @@
           <Key>
             <PropertyRef Name="HoofingId" />
           </Key>
-          <Property Name="HoofingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoofingId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Frontshoe" Type="nvarchar" MaxLength="50" />
           <Property Name="Frontsize" Type="nvarchar" MaxLength="50" />
           <Property Name="Frontangle" Type="nvarchar" MaxLength="50" />
@@ -84,21 +95,21 @@
           <Key>
             <PropertyRef Name="HorseId" />
           </Key>
-          <Property Name="HorseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HorseId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Registernumber" Type="nvarchar" MaxLength="50" />
           <Property Name="URL" Type="nvarchar" MaxLength="100" />
           <Property Name="Note" Type="nvarchar" MaxLength="100" />
           <Property Name="Created" Type="datetime" />
           <Property Name="StableId" Type="nvarchar" MaxLength="10" />
-          <Property Name="PersonId" Type="int" />
-          <Property Name="UserId" Type="int" />
+          <Property Name="PersonId" Type="nvarchar" MaxLength="10" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Medicine">
           <Key>
             <PropertyRef Name="MedicineId" />
           </Key>
-          <Property Name="MedicineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MedicineId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="Quantity" Type="nvarchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
@@ -110,7 +121,7 @@
           <Key>
             <PropertyRef Name="PersonId" />
           </Key>
-          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Firstname" Type="nvarchar" MaxLength="50" />
           <Property Name="Lastname" Type="nvarchar" MaxLength="50" />
           <Property Name="Created" Type="datetime" />
@@ -120,11 +131,11 @@
           <Key>
             <PropertyRef Name="PhoneId" />
           </Key>
-          <Property Name="PhoneId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhoneId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="50" />
           <Property Name="Number_1" Type="nvarchar" MaxLength="50" />
           <Property Name="Number_2" Type="nvarchar" MaxLength="50" />
-          <Property Name="PersonId" Type="int" />
+          <Property Name="PersonId" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Stable">
           <Key>
@@ -135,26 +146,17 @@
           <Property Name="Registernumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="Created" Type="datetime" />
-          <Property Name="UserId" Type="int" />
-        </EntityType>
-        <EntityType Name="Training">
-          <Key>
-            <PropertyRef Name="TrainingId" />
-          </Key>
-          <Property Name="TrainingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="50" />
-          <Property Name="Quantity" Type="nvarchar" MaxLength="50" />
-          <Property Name="Note" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Role" Type="nvarchar" MaxLength="20" />
-          <Property Name="PersonId" Type="int" />
+          <Property Name="PersonId" Type="nvarchar" MaxLength="10" />
           <Property Name="Created" Type="datetime" />
         </EntityType>
         <Association Name="FK_Action_ToTable">
@@ -226,18 +228,6 @@
             </Principal>
             <Dependent Role="Action">
               <PropertyRef Name="MedicineId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Action_ToTable_6">
-          <End Role="Training" Type="Self.Training" Multiplicity="0..1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Training">
-              <PropertyRef Name="TrainingId" />
-            </Principal>
-            <Dependent Role="Action">
-              <PropertyRef Name="TrainingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -373,8 +363,15 @@
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Phone" EntityType="Self.Phone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stable" EntityType="Self.Stable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Event].[id] AS [id], 
+    [Event].[text] AS [text], 
+    [Event].[eventstart] AS [eventstart], 
+    [Event].[eventend] AS [eventend]
+    FROM [dbo].[Event] AS [Event]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Action_ToTable" Association="Self.FK_Action_ToTable">
             <End Role="Horse" EntitySet="Horse" />
             <End Role="Action" EntitySet="Action" />
@@ -397,10 +394,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Action_ToTable_5" Association="Self.FK_Action_ToTable_5">
             <End Role="Medicine" EntitySet="Medicine" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_ToTable_6" Association="Self.FK_Action_ToTable_6">
-            <End Role="Training" EntitySet="Training" />
             <End Role="Action" EntitySet="Action" />
           </AssociationSet>
           <AssociationSet Name="FK_Address_ToTable" Association="Self.FK_Address_ToTable">
@@ -453,35 +446,34 @@
           <Key>
             <PropertyRef Name="ActionId" />
           </Key>
-          <Property Name="ActionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Start" Type="DateTime" Precision="3" />
           <Property Name="End" Type="DateTime" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HorseId" Type="Int32" />
-          <Property Name="HoofingId" Type="Int32" />
-          <Property Name="FoodsupplementId" Type="Int32" />
-          <Property Name="FoodId" Type="Int32" />
-          <Property Name="CareId" Type="Int32" />
-          <Property Name="MedicineId" Type="Int32" />
-          <Property Name="TrainingId" Type="Int32" />
+          <Property Name="HorseId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HoofingId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FoodsupplementId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FoodId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CareId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MedicineId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TrainingId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Horse" Relationship="Self.FK_Action_ToTable" FromRole="Action" ToRole="Horse" />
           <NavigationProperty Name="Hoofing" Relationship="Self.FK_Action_ToTable_1" FromRole="Action" ToRole="Hoofing" />
           <NavigationProperty Name="Foodsupplement" Relationship="Self.FK_Action_ToTable_2" FromRole="Action" ToRole="Foodsupplement" />
           <NavigationProperty Name="Food" Relationship="Self.FK_Action_ToTable_3" FromRole="Action" ToRole="Food" />
           <NavigationProperty Name="Care" Relationship="Self.FK_Action_ToTable_4" FromRole="Action" ToRole="Care" />
           <NavigationProperty Name="Medicine" Relationship="Self.FK_Action_ToTable_5" FromRole="Action" ToRole="Medicine" />
-          <NavigationProperty Name="Training" Relationship="Self.FK_Action_ToTable_6" FromRole="Action" ToRole="Training" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
           </Key>
-          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddressId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Streetname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Postnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Community" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PersonId" Type="Int32" />
+          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="StableId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Address_ToTable" FromRole="Address" ToRole="Person" />
           <NavigationProperty Name="Stable" Relationship="Self.FK_Address_ToTable_1" FromRole="Address" ToRole="Stable" />
@@ -490,11 +482,11 @@
           <Key>
             <PropertyRef Name="CareId" />
           </Key>
-          <Property Name="CareId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CareId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PersonId" Type="Int32" />
+          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable_4" FromRole="Care" ToRole="Action" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Care_ToTable" FromRole="Care" ToRole="Person" />
         </EntityType>
@@ -502,7 +494,7 @@
           <Key>
             <PropertyRef Name="FoodId" />
           </Key>
-          <Property Name="FoodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -514,7 +506,7 @@
           <Key>
             <PropertyRef Name="FoodsupplementId" />
           </Key>
-          <Property Name="FoodsupplementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodsupplementId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -527,7 +519,7 @@
           <Key>
             <PropertyRef Name="HoofingId" />
           </Key>
-          <Property Name="HoofingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoofingId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Frontshoe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Frontsize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Frontangle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -542,15 +534,15 @@
           <Key>
             <PropertyRef Name="HorseId" />
           </Key>
-          <Property Name="HorseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HorseId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Registernumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <Property Name="StableId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="PersonId" Type="Int32" />
-          <Property Name="UserId" Type="Int32" />
+          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable" FromRole="Horse" ToRole="Action" />
           <NavigationProperty Name="Stable" Relationship="Self.FK_Horse_ToTable" FromRole="Horse" ToRole="Stable" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Horse_ToTable_1" FromRole="Horse" ToRole="Person" />
@@ -560,7 +552,7 @@
           <Key>
             <PropertyRef Name="MedicineId" />
           </Key>
-          <Property Name="MedicineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MedicineId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -573,7 +565,7 @@
           <Key>
             <PropertyRef Name="PersonId" />
           </Key>
-          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
@@ -589,11 +581,11 @@
           <Key>
             <PropertyRef Name="PhoneId" />
           </Key>
-          <Property Name="PhoneId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Number_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Number_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PersonId" Type="Int32" />
+          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Phone_ToTable" FromRole="Phone" ToRole="Person" />
         </EntityType>
         <EntityType Name="Stable">
@@ -605,35 +597,34 @@
           <Property Name="Registernumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="UserId" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Address" Relationship="Self.FK_Address_ToTable_1" FromRole="Stable" ToRole="Address" />
           <NavigationProperty Name="Horse" Relationship="Self.FK_Horse_ToTable" FromRole="Stable" ToRole="Horse" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Person_ToTable" FromRole="Stable" ToRole="Person" />
           <NavigationProperty Name="User" Relationship="Self.FK_Stable_ToTable" FromRole="Stable" ToRole="User" />
         </EntityType>
-        <EntityType Name="Training">
-          <Key>
-            <PropertyRef Name="TrainingId" />
-          </Key>
-          <Property Name="TrainingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable_6" FromRole="Training" ToRole="Action" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PersonId" Type="Int32" />
+          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Horse" Relationship="Self.FK_Horse_ToTable_2" FromRole="User" ToRole="Horse" />
           <NavigationProperty Name="Person" Relationship="Self.FK_User_ToTable" FromRole="User" ToRole="Person" />
           <NavigationProperty Name="Stable" Relationship="Self.FK_Stable_ToTable" FromRole="User" ToRole="Stable" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventstart" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="eventend" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Action_ToTable">
           <End Role="Horse" Type="Self.Horse" Multiplicity="0..1" />
@@ -704,18 +695,6 @@
             </Principal>
             <Dependent Role="Action">
               <PropertyRef Name="MedicineId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Action_ToTable_6">
-          <End Role="Training" Type="Self.Training" Multiplicity="0..1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Training">
-              <PropertyRef Name="TrainingId" />
-            </Principal>
-            <Dependent Role="Action">
-              <PropertyRef Name="TrainingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -851,8 +830,8 @@
           <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="Phone" EntityType="Self.Phone" />
           <EntitySet Name="Stable" EntityType="Self.Stable" />
-          <EntitySet Name="Training" EntityType="Self.Training" />
           <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Event" EntityType="Self.Event" />
           <AssociationSet Name="FK_Action_ToTable" Association="Self.FK_Action_ToTable">
             <End Role="Horse" EntitySet="Horse" />
             <End Role="Action" EntitySet="Action" />
@@ -875,10 +854,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Action_ToTable_5" Association="Self.FK_Action_ToTable_5">
             <End Role="Medicine" EntitySet="Medicine" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_ToTable_6" Association="Self.FK_Action_ToTable_6">
-            <End Role="Training" EntitySet="Training" />
             <End Role="Action" EntitySet="Action" />
           </AssociationSet>
           <AssociationSet Name="FK_Address_ToTable" Association="Self.FK_Address_ToTable">
@@ -1071,16 +1046,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Training">
-            <EntityTypeMapping TypeName="kauppeedbModel.Training">
-              <MappingFragment StoreEntitySet="Training">
-                <ScalarProperty Name="TrainingId" ColumnName="TrainingId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="kauppeedbModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -1090,6 +1055,16 @@
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Event">
+            <EntityTypeMapping TypeName="kauppeedbModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="eventstart" ColumnName="eventstart" />
+                <ScalarProperty Name="eventend" ColumnName="eventend" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

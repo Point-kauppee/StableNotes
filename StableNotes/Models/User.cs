@@ -21,11 +21,11 @@ namespace StableNotes.Models
             this.Stable = new HashSet<Stable>();
         }
     
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
-        public Nullable<int> PersonId { get; set; }
+        public string PersonId { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

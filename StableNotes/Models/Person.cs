@@ -24,7 +24,7 @@ namespace StableNotes.Models
             this.User = new HashSet<User>();
         }
     
-        public int PersonId { get; set; }
+        public string PersonId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public Nullable<System.DateTime> Created { get; set; }

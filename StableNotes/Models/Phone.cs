@@ -14,11 +14,11 @@ namespace StableNotes.Models
     
     public partial class Phone
     {
-        public int PhoneId { get; set; }
+        public string PhoneId { get; set; }
         public string Number { get; set; }
         public string Number_1 { get; set; }
         public string Number_2 { get; set; }
-        public Nullable<int> PersonId { get; set; }
+        public string PersonId { get; set; }
     
         public virtual Person Person { get; set; }
     }

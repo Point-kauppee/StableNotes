@@ -27,7 +27,7 @@ namespace StableNotes.Models
         public string Registernumber { get; set; }
         public string Note { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
-        public Nullable<int> UserId { get; set; }
+        public string UserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Address { get; set; }

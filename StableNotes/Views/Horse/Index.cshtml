@@ -1,0 +1,235 @@
+﻿@model IEnumerable<StableNotes.Models.Horse>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@section scripts{
+    <script type="text/javascript">
+       function päivitäHevoslistaus() {
+           $.getJSON("/horse/getlist", null, function (json) {
+               var horses = JSON.parse(json);
+               alert("Hevosten määrä: " + horses.length);
+               var html = "";
+               for (var index = 0; index < horses.length; index++) {
+                   html += "<tr>" +
+                       "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                     "<td>" + horses[index].HorseId + "</td>" +
+                     "<td>" + horses[index].Name + "</td>" +
+                      "<td>" + horses[index].Registernumber + "</td>" +
+                      "<td>" + horses[index].URL + "</td>" +
+                      "<td>" + horses[index].Note + "</td>" +
+                      "<td>" + horses[index].Created + "</td>" +
+                      "<td>" + horses[index].StableId + "</td>" +
+                      "<td>" + horses[index].PersonId + "</td>" +
+                      "<td>" + horses[index].UserId + "</td>" +
+                      "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" + "</tr>\r\n";
+               }
+               $("#horseList tbody").html(html);
+
+               //tietojen muokkaus
+
+               $(".glyphicon-pencil").click(function () {
+                   //etsitään tiedot klikatulta riviltä
+                   var horseId = $(this).parent().parent().next().text();
+                   alert(horseId);
+                   //haetaan tiedot id:n perusteella
+                   $.getJSON("/horse/getsinglehorse/" + horseId, null, function (json2) {
+                       var horse = JSON.parse(json2);
+                       //kopioidaan tiedot ikkunaan
+
+                       $("#horseModal_HorsId").val(horse.HorseId);
+                       $("#horseModal_Name").val(horse.Name);
+                       $("#horseModal_Regist").val(horse.Registernumber);
+                       $("#horseModal_url").val(horse.URL);
+                       $("#horseModal_Note").val(horse.Note);
+                       $("#horseModal_Creat").val(horse.Created);
+                       $("#horseModal_StabId").val(horse.StableId);
+                       $("#horseModal_PersId").val(horse.PersonId);
+                       $("#horseModal_UseId").val(horse.UserId);
+                       //Näytetään ikkuna
+                       $("#horseModalTitle").text("Muokkaa hevosta");
+                       $("#horseModalDialog").modal("show");
+
+
+                   });
+
+               });
+
+               //tietojen poisto
+
+               $(".glyphicon-trash").click(function () {
+                   //etsitään tiedot klikatulta riviltä
+                   var horseId = $(this).parent().parent().prev().prev().prev().prev().prev().prev().prev().prev().prev().text();
+
+                   var ok = confirm("Haluatko varmasti poistaa hevosen " + horseId + "?");
+
+                   if (ok == true) {
+
+                       //haetaan tiedot id:n perusteella
+                       $.getJSON("/horse/delete/" + horseId, null, function (status) {
+                           if (status == true) {
+                               alert("Hevostieto on poistettu!");
+                               päivitäHevoslistaus();
+                           }
+                           else {
+                               alert("Poisto ei onnistunut!");
+                           }
+
+
+                       });
+
+                   }
+
+
+
+               });
+
+           });
+       }
+
+       // sivun alustaminen
+           $(function () {
+               päivitäHevoslistaus();
+
+               $("#addNewHorseButton").click(function () {
+                    //Tyhjennetään ikkunan tiedot
+                   $("#horseModal_HorsId").val("(uusi)");
+                   $("#horseModal_Name").val("");
+                   $("#horseModal_Regist").val("");
+                   $("#horseModal_url").val("");
+                   $("#horseModal_Note").val("");
+                   $("#horseModal_Creat").val("");
+                   $("#horseModal_StabId").val("");
+                   $("#horseModal_PersId").val("");
+                   $("#horseModal_UseId").val("");
+                   $("#horseModalTitle").text("Lisää uusi hevonen");
+                   $("#horseModalDialog").modal("show");
+               });
+
+               $("#horseModalSaveButton").click(function () {
+                   //luetaan syötetyt kentät
+                   var details = {
+                       HorseId: $("#horseModal_HorsId").val(),
+                       Name: $("#horseModal_Name").val(),
+                       Registernumber: $("#horseModal_Regist").val(),
+                       URL: $("#horseModal_url").val(),
+                       Note: $("#horseModal_Note").val(),
+                       Created: $("#horseModal_Creat").val(),
+                       StableId: $("#horseModal_StabId").val(),
+                       PersonId: $("#horseModal_PersId").val(),
+                       UserId: $("#horseModal_UseId").val()
+                   };
+
+                   $.post("/horse/update/", details, function (status) {
+                       if (status == true) {
+                           alert("Tallennus OK!");
+
+                           $("#horseModalDialog").modal("hide");
+                           päivitäHevoslistaus();
+                       }
+                       else {
+                           alert("Tallennus ei onnistunut!");
+                       }
+                   });
+               });
+
+               $("#showHideList").click(function () {
+                   alert("nappia painettu");
+                   var x = document.getElementById('horseList');
+                   if (x.style.display == 'none') {
+                       x.style.display = 'block';
+                       $("#showHideList").text("Piilota lista");
+                   }
+                   else {
+                       x.style.display = 'none';
+                       $("#showHideList").text("Näytä lista");
+                   }
+
+               });
+           });
+
+    </script>
+}
+
+<h2>Hevoset, Dynaaminen muokkaus Ajaxilla</h2>
+
+<button class="btn btn-primary" id="addNewHorseButton">Lisää uusi</button>
+@*<button class="btn btn-danger" id="showHideList">Piilota lista</button>*@
+<input type="image" src="~/Images/hevosenkenkä.png" onsubmit="submit();" id="showHideList"/>
+<input type="image" src="~/Images/talli.png" onsubmit="submit();" />
+
+<div id="horseList">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Hevosen Id</th>
+                <th>Hevosen nimi</th>
+                <th>Numero</th>
+                <th>Linkki</th>
+                <th>Huomio</th>
+                <th>Luotu</th>
+                <th>Tallin Id</th>
+                <th>Henkilön Id</th>
+                <th>Käyttäjän Id</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+
+    </table>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="horseModalDialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span id="horseModalTitle">Muokkaa hevosta</span></h4>
+            </div>
+            <div class="modal-body">
+                @*<p>One fine body&hellip;</p>*@
+                <div class="row">
+                    <div class="col-md-3">Hevosen Id</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_HorsId" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Hevosen nimi</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_Name" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Hevosen rekisterinumero</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_Regist" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Linkki</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_url" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Muuta</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_Note" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Tapahtuma luotu</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_Creat" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Tallin Id</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_StabId" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Henkilön Id</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_PersId" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Käyttäjän Id</div>
+                    <div class="col-md-6"><input class="form-control" id="horseModal_UseId" /></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                <button type="button" class="btn btn-primary" id="horseModalSaveButton">Tallenna</button>
+            </div>
+        </div>
+    </div>
+</div>

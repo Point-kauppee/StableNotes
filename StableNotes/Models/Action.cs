@@ -14,18 +14,18 @@ namespace StableNotes.Models
     
     public partial class Action
     {
-        public int ActionId { get; set; }
+        public string ActionId { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<System.DateTime> Start { get; set; }
         public Nullable<System.DateTime> End { get; set; }
         public string Note { get; set; }
-        public Nullable<int> HorseId { get; set; }
-        public Nullable<int> HoofingId { get; set; }
-        public Nullable<int> FoodsupplementId { get; set; }
-        public Nullable<int> FoodId { get; set; }
-        public Nullable<int> CareId { get; set; }
-        public Nullable<int> MedicineId { get; set; }
-        public Nullable<int> TrainingId { get; set; }
+        public string HorseId { get; set; }
+        public string HoofingId { get; set; }
+        public string FoodsupplementId { get; set; }
+        public string FoodId { get; set; }
+        public string CareId { get; set; }
+        public string MedicineId { get; set; }
+        public string TrainingId { get; set; }
     
         public virtual Horse Horse { get; set; }
         public virtual Hoofing Hoofing { get; set; }
@@ -33,6 +33,5 @@ namespace StableNotes.Models
         public virtual Food Food { get; set; }
         public virtual Care Care { get; set; }
         public virtual Medicine Medicine { get; set; }
-        public virtual Training Training { get; set; }
     }
 }

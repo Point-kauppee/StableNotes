@@ -20,7 +20,7 @@ namespace StableNotes.Models
             this.Action = new HashSet<Action>();
         }
     
-        public int MedicineId { get; set; }
+        public string MedicineId { get; set; }
         public string Type { get; set; }
         public string Quantity { get; set; }
         public string Note { get; set; }

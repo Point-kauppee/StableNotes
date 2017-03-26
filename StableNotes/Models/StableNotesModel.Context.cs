@@ -36,7 +36,7 @@ namespace StableNotes.Models
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Phone> Phone { get; set; }
         public virtual DbSet<Stable> Stable { get; set; }
-        public virtual DbSet<Training> Training { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Event> Event { get; set; }
     }
 }

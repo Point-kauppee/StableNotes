@@ -20,15 +20,15 @@ namespace StableNotes.Models
             this.Action = new HashSet<Action>();
         }
     
-        public int HorseId { get; set; }
+        public string HorseId { get; set; }
         public string Name { get; set; }
         public string Registernumber { get; set; }
         public string URL { get; set; }
         public string Note { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
         public string StableId { get; set; }
-        public Nullable<int> PersonId { get; set; }
-        public Nullable<int> UserId { get; set; }
+        public string PersonId { get; set; }
+        public string UserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Action> Action { get; set; }
