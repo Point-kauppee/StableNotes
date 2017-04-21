@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace StableNotes.Controllers
 {
     public class HorseController : Controller
@@ -24,9 +25,32 @@ namespace StableNotes.Controllers
 
         public ActionResult Index()
         {
+            kauppeedbEntities entities = new kauppeedbEntities();
+            List<Horse> model = entities.Horse.ToList();
+
+            entities.Dispose();
+
+            return View(model);
+        }
 
 
-            return View();
+
+        public ActionResult DownloadViewPDF()
+        {
+
+            kauppeedbEntities entities = new kauppeedbEntities();
+            List<Horse> model = entities.Horse.ToList();
+            entities.Dispose();
+
+            return new Rotativa.MVC.ViewAsPdf("PdfList", model) { FileName = "PdfList.pdf" };
+        }
+
+        public ActionResult PdfList()
+        {
+            kauppeedbEntities entities = new kauppeedbEntities();
+            List<Horse> model = entities.Horse.ToList();
+            entities.Dispose();
+            return View(model);
         }
         public JsonResult GetList()
         {
@@ -43,7 +67,7 @@ namespace StableNotes.Controllers
                              StableId = c.StableId,
                              PersonId = c.PersonId,
                              UserId = c.UserId
-                         }).ToList();
+                            }).ToList();
             string json = JsonConvert.SerializeObject(model);
             entities.Dispose();
 
@@ -51,6 +75,8 @@ namespace StableNotes.Controllers
             Response.CacheControl = "no-cache";
 
             return Json(json, JsonRequestBehavior.AllowGet);
+
+
         }
         public JsonResult GetSingleHorse(string id)
         {

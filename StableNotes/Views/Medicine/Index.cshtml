@@ -1,0 +1,209 @@
+﻿@model IEnumerable<StableNotes.Models.Medicine>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@section scripts{
+    <script type="text/javascript">
+       function päivitäLääkelistaus() {
+           $.getJSON("/medicine/getlist", null, function (json) {
+               var medicines = JSON.parse(json);
+               alert("Lääkintä määrä: " + medicines.length);
+               var html = "";
+               for (var index = 0; index < medicines.length; index++) {
+                   html += "<tr>" +
+                       "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                      "<td>" + medicines[index].MedicineId + "</td>" +
+                      "<td>" + medicines[index].Type + "</td>" +
+                      "<td>" + medicines[index].Quantity + "</td>" +
+                      "<td>" + medicines[index].Note + "</td>" +
+                      "<td>" + medicines[index].URL + "</td>" +
+                      "<td>" + medicines[index].Withdrawalperiod + "</td>" +
+                      "<td>" + medicines[index].Purchaced + "</td>" +
+                      "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" + "</tr>\r\n";
+               }
+               $("#medicineList tbody").html(html);
+
+               //tietojen muokkaus
+
+               $(".glyphicon-pencil").click(function () {
+                   //etsitään tiedot klikatulta riviltä
+                   var medicineId = $(this).parent().parent().next().text();
+                   alert(medicineId);
+                   //haetaan tiedot id:n perusteella
+                   $.getJSON("/medicine/getsinglemedicine/" + medicineId, null, function (json2) {
+                       var medicine = JSON.parse(json2);
+                       //kopioidaan tiedot ikkunaan
+
+                       $("#medicineModal_MediId").val(medicine.MedicineId);
+                       $("#medicineModal_Type").val(medicine.Type);
+                       $("#medicineModal_Quant").val(medicine.Quantity);
+                       $("#medicineModal_Note").val(medicine.Note);
+                       $("#medicineModal_url").val(medicine.URL);
+                       $("#medicineModal_With").val(medicine.Withdrawalperiod);
+                       $("#medicineModal_Purc").val(medicine.Purchaced);
+                       //Näytetään ikkuna
+                       $("#medicineModalTitle").text("Muokkaa lääkitystä");
+                       $("#medicineModalDialog").modal("show");
+
+
+                   });
+
+               });
+
+               //tietojen poisto
+
+               $(".glyphicon-trash").click(function () {
+                   //etsitään tiedot klikatulta riviltä
+                   var medicineId = $(this).parent().parent().prev().prev().prev().prev().prev().prev().prev().text();
+
+                   var ok = confirm("Haluatko varmasti poistaa lääkityksen " + medicineId + "?");
+
+                   if (ok == true) {
+
+                       //haetaan tiedot id:n perusteella
+                       $.getJSON("/medicine/delete/" + medicineId, null, function (status) {
+                           if (status == true) {
+                               alert("Lääkitystieto on poistettu!");
+                               päivitäLääkelistaus();
+                           }
+                           else {
+                               alert("Poisto ei onnistunut!");
+                           }
+                       });
+                   }
+               });
+           });
+       }
+
+       // sivun alustaminen
+           $(function () {
+               päivitäLääkelistaus();
+
+               $("#addNewMedicineButton").click(function () {
+                    //Tyhjennetään ikkunan tiedot
+                   $("#medicineModal_MediId").val("(uusi)");
+                   $("#medicineModal_Type").val("");
+                   $("#medicineModal_Quant").val("");
+                   $("#medicineModal_Note").val("");
+                   $("#medicineModal_url").val("");
+                   $("#medicineModal_With").val("");
+                   $("#medicineModal_Purc").val("");
+                   $("#medicineModalTitle").text("Lisää uusi lääkitys");
+                   $("#medicineModalDialog").modal("show");
+               });
+
+               $("#medicineModalSaveButton").click(function () {
+                   //luetaan syötetyt kentät
+                   var details = {
+                       MedicineId: $("#medicineModal_MediId").val(),
+                       Type: $("#medicineModal_Type").val(),
+                       Quantity: $("#medicineModal_Quant").val(),
+                       Note: $("#medicineModal_Note").val(),
+                       URL: $("#medicineModal_url").val(),
+                       Withdrawalperiod: $("#medicineModal_With").val(),
+                       Purchaced: $("#medicineModal_Purc").val(),
+                   };
+
+                   $.post("/medicine/update/", details, function (status) {
+                       if (status == true) {
+                           alert("Tallennus OK!");
+
+                           $("#medicineModalDialog").modal("hide");
+                           päivitäLääkelistaus();
+                       }
+                       else {
+                           alert("Tallennus ei onnistunut!");
+                       }
+                   });
+               });
+
+               $("#showHideList").click(function () {
+                   alert("nappia painettu");
+                   var x = document.getElementById('medicineList');
+                   if (x.style.display == 'none') {
+                       x.style.display = 'block';
+                       $("#showHideList").text("Piilota lista");
+                   }
+                   else {
+                       x.style.display = 'none';
+                       $("#showHideList").text("Näytä lista");
+                   }
+
+               });
+           });
+
+    </script>
+}
+
+<h2>Lääkitys, Dynaaminen muokkaus Ajaxilla</h2>
+
+<button class="btn btn-primary" id="addNewMedicineButton">Lisää uusi</button>
+@*<button class="btn btn-danger" id="showHideList">Piilota lista</button>*@
+<input type="image" src="~/Images/hevosenkenkä.png" onsubmit="submit();" id="showHideList" />
+<input type="image" src="~/Images/talli.png" onsubmit="submit();" />
+
+<div id="medicineList">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Lääkkeen Id</th>
+                <th>Lääkkeen tyyppi</th>
+                <th>Määrä</th>
+                <th>Huomio</th>
+                <th>Linkki</th>
+                <th>Varoaika</th>
+                <th>Ostettu</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+
+    </table>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="medicineModalDialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span id="medicineModalTitle">Muokkaa lääkitystä</span></h4>
+            </div>
+            <div class="modal-body">
+                @*<p>One fine body&hellip;</p>*@
+                <div class="row">
+                    <div class="col-md-3">Lääkkeen Id</div>
+                    <div class="col-md-6"><input class="form-control" id="medicineModal_MediId" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Lääkkeen tyyppi</div>
+                    <div class="col-md-6"><input class="form-control" id="medicineModal_Type" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Määrä</div>
+                    <div class="col-md-6"><input class="form-control" id="medicineModal_Quant" /></div>
+                </div>
+                <div class="row">
+                <div class="col-md-3">Muuta</div>
+                <div class="col-md-6"><input class="form-control" id="medicineModal_Note" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Linkki</div>
+                    <div class="col-md-6"><input class="form-control" id="medicineModal_url" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Varoaika</div>
+                    <div class="col-md-6"><input class="form-control" id="medicineModal_With" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Ostettu</div>
+                    <div class="col-md-6"><input class="form-control" id="medicineModal_Purch" /></div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                <button type="button" class="btn btn-primary" id="medicineModalSaveButton">Tallenna</button>
+            </div>
+        </div>
+    </div>
+</div>

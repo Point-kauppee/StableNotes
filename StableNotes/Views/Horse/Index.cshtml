@@ -75,16 +75,9 @@
                            else {
                                alert("Poisto ei onnistunut!");
                            }
-
-
                        });
-
                    }
-
-
-
                });
-
            });
        }
 
@@ -106,6 +99,10 @@
                    $("#horseModalTitle").text("Lisää uusi hevonen");
                    $("#horseModalDialog").modal("show");
                });
+
+               @*$("#PdfList").click(function () {
+                   @Url.Action("DownloadViewPDF", "Horse")
+               });*@
 
                $("#horseModalSaveButton").click(function () {
                    //luetaan syötetyt kentät
@@ -153,7 +150,9 @@
 }
 
 <h2>Hevoset, Dynaaminen muokkaus Ajaxilla</h2>
-
+<div><a href="@Url.Action("DownloadViewPDF", "Horse")">Tee PDF</a></div>
+@*<button class="btn btn-default" id="PdfList">Pdf lista</button>*@
+<input type="button" onclick="location.href = '/Horse/DownloadViewPDF';" value= "Luo pdf"/>
 <button class="btn btn-primary" id="addNewHorseButton">Lisää uusi</button>
 @*<button class="btn btn-danger" id="showHideList">Piilota lista</button>*@
 <input type="image" src="~/Images/hevosenkenkä.png" onsubmit="submit();" id="showHideList"/>
