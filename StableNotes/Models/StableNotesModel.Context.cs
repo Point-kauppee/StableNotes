@@ -38,5 +38,6 @@ namespace StableNotes.Models
         public virtual DbSet<Stable> Stable { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Event> Event { get; set; }
+        public virtual DbSet<Training> Training { get; set; }
     }
 }

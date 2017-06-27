@@ -5,6 +5,9 @@
 
 
 @section scripts{
+<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
     <script type="text/javascript">
        function päivitäHevoslistaus() {
            $.getJSON("/horse/getlist", null, function (json) {

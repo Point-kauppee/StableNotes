@@ -34,6 +34,8 @@
         <AssociationConnector Association="kauppeedbModel.FK_Phone_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="kauppeedbModel.FK_User_ToTable" ManuallyRouted="false" />
         <AssociationConnector Association="kauppeedbModel.FK_Stable_ToTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="kauppeedbModel.Training" Width="1.5" PointX="5.375" PointY="4.875" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_6" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

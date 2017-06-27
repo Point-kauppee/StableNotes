@@ -1,0 +1,193 @@
+﻿@model IEnumerable<StableNotes.Models.Training>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@section scripts{
+<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+       function päivitäTreenilistaus() {
+           $.getJSON("/training/getlist", null, function (json) {
+               var Training = JSON.parse(json);
+               alert("Treenien määrä: " + Training.length);
+               var html = "";
+               for (var index = 0; index < Training.length; index++) {
+                   html += "<tr>" +
+                       "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
+                     "<td>" + Training[index].TrainingId + "</td>" +
+                     "<td>" + Training[index].Type + "</td>" +
+                      "<td>" + Training[index].Quantity + "</td>" +
+                      "<td>" + Training[index].Note + "</td>" +
+                      "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" + "</tr>\r\n";
+               }
+               $("#TrainingList tbody").html(html);
+
+               //tietojen muokkaus
+
+               $(".glyphicon-pencil").click(function () {
+                   //etsitään tiedot klikatulta riviltä
+                   var trainingId = $(this).parent().parent().next().text();
+                   alert(trainingId);
+                   //haetaan tiedot id:n perusteella
+                   $.getJSON("/training/getsingletraining/" + trainingId, null, function (json2) {
+                       var training = JSON.parse(json2);
+                       //kopioidaan tiedot ikkunaan
+
+                       $("#trainingModal_TrainId").val(training.TrainingId);
+                       $("#trainingModal_Type").val(training.Type);
+                       $("#trainingModal_Quantity").val(training.Quantity);
+                       $("#trainingModal_Note").val(training.Note);
+
+                       //Näytetään ikkuna
+                       $("#trainingModalTitle").text("Muokkaa treeniä");
+                       $("#trainingModalDialog").modal("show");
+
+
+                   });
+
+               });
+
+               //tietojen poisto
+
+               $(".glyphicon-trash").click(function () {
+                   //etsitään tiedot klikatulta riviltä
+                   var trainingId = $(this).parent().parent().prev().prev().prev().prev().prev().text();
+
+                   var ok = confirm("Haluatko varmasti poistaa treenin " + trainingId + "?");
+
+                   if (ok == true) {
+
+                       //haetaan tiedot id:n perusteella
+                       $.getJSON("/training/delete/" + trainingId, null, function (status) {
+                           if (status == true) {
+                               alert("Treenitieto on poistettu!");
+                               päivitäTreenilistaus();
+                           }
+                           else {
+                               alert("Poisto ei onnistunut!");
+                           }
+                       });
+                   }
+               });
+           });
+       }
+
+       // sivun alustaminen
+           $(function () {
+               päivitäTreenilistaus();
+
+               $("#addNewTrainingButton").click(function () {
+                    //Tyhjennetään ikkunan tiedot
+                   $("#trainingModal_TrainId").val("(uusi)");
+                   $("#trainingModal_Type").val("");
+                   $("#trainingModal_Quantity").val("");
+                   $("#trainingModal_Note").val("");
+                   $("#trainingModalTitle").text("Lisää uusi treeni");
+                   $("#trainingModalDialog").modal("show");
+               });
+
+               @*$("#PdfList").click(function () {
+                   @Url.Action("DownloadViewPDF", "Training")
+               });*@
+
+               $("#trainingModalSaveButton").click(function () {
+                   //luetaan syötetyt kentät
+                   var details = {
+                       TrainingId: $("#trainingModal_TrainId").val(),
+                       Type: $("#trainingModal_Type").val(),
+                       Quantity: $("#trainingModal_Quantity").val(),
+                       Note: $("#trainingModal_Note").val()
+                   };
+
+                   $.post("/training/update/", details, function (status) {
+                       if (status == true) {
+                           alert("Tallennus OK!");
+
+                           $("#trainingModalDialog").modal("hide");
+                           päivitäTreenilistaus();
+                       }
+                       else {
+                           alert("Tallennus ei onnistunut!");
+                       }
+                   });
+               });
+
+               $("#showHideList").click(function () {
+                   alert("nappia painettu");
+                   var x = document.getElementById('trainingList');
+                   if (x.style.display == 'none') {
+                       x.style.display = 'block';
+                       $("#showHideList").text("Piilota lista");
+                   }
+                   else {
+                       x.style.display = 'none';
+                       $("#showHideList").text("Näytä lista");
+                   }
+
+               });
+           });
+
+    </script>
+}
+
+<h2>Treeni, Dynaaminen muokkaus Ajaxilla</h2>
+<div><a href="@Url.Action("DownloadViewPDF", "Training")">Tee PDF</a></div>
+@*<button class="btn btn-default" id="PdfList">Pdf lista</button>*@
+<input type="button" onclick="location.href = '/Training/DownloadViewPDF';" value= "Luo pdf"/>
+<button class="btn btn-primary" id="addNewTrainingButton">Lisää uusi</button>
+@*<button class="btn btn-danger" id="showHideList">Piilota lista</button>*@
+<input type="image" src="~/Images/hevosenkenkä.png" onsubmit="submit();" id="showHideList"/>
+<input type="image" src="~/Images/talli.png" onsubmit="submit();" />
+
+<div id="TrainingList">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Treenin Id</th>
+                <th>Treenin tyyppi</th>
+                <th>Treenin määrä</th>
+                <th>Muuta</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+
+    </table>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="trainingModalDialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span id="trainingModalTitle">Muokkaa treeniä</span></h4>
+            </div>
+            <div class="modal-body">
+                @*<p>One fine body&hellip;</p>*@
+                <div class="row">
+                    <div class="col-md-3">Treenin Id</div>
+                    <div class="col-md-6"><input class="form-control" id="trainingModal_TrainId" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Treenin tyyppi</div>
+                    <div class="col-md-6"><input class="form-control" id="trainingModal_Type" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Treenin määrä</div>
+                    <div class="col-md-6"><input class="form-control" id="trainingModal_Quantity" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Muuta</div>
+                    <div class="col-md-6"><input class="form-control" id="trainingModal_Note" /></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                <button type="button" class="btn btn-primary" id="trainingModalSaveButton">Tallenna</button>
+            </div>
+        </div>
+    </div>
+</div>

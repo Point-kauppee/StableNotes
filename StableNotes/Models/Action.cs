@@ -33,5 +33,6 @@ namespace StableNotes.Models
         public virtual Food Food { get; set; }
         public virtual Care Care { get; set; }
         public virtual Medicine Medicine { get; set; }
+        public virtual Training Training { get; set; }
     }
 }
