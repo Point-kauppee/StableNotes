@@ -21,10 +21,10 @@ namespace StableNotes.Models
         }
     
         public string HorseId { get; set; }
-        public string Name { get; set; }
-        public string Registernumber { get; set; }
-        public string URL { get; set; }
-        public string Note { get; set; }
+        public string Horsename { get; set; }
+        public string Horseregisternumber { get; set; }
+        public string HorseURL { get; set; }
+        public string Horsenote { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
         public string StableId { get; set; }
         public string PersonId { get; set; }
@@ -33,7 +33,5 @@ namespace StableNotes.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Action> Action { get; set; }
         public virtual Stable Stable { get; set; }
-        public virtual Person Person { get; set; }
-        public virtual User User { get; set; }
     }
 }

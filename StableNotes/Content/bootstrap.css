@@ -61,6 +61,13 @@ body {
   margin: 0;
 }
 
+    /*body .modal {
+        /* new custom width */
+        width: 560px;
+        /* must be half of the width, minus scrollbar on the left (30px) */
+        margin-left: -280px;
+    }*/
+
 a:focus {
   outline: thin dotted;
 }
@@ -5607,7 +5614,8 @@ button.close {
 body.modal-open,
 .modal-open .navbar-fixed-top,
 .modal-open .navbar-fixed-bottom {
-  margin-right: 15px;
+  /*margin-right: 15px;*/
+  margin-left: 15px;
 }
 
 .modal {
@@ -5621,6 +5629,17 @@ body.modal-open,
   overflow: auto;
   overflow-y: scroll;
 }
+
+/*.modal {
+    position: absolute;
+    top: 10px;
+    right: 100px;
+    bottom: 0;
+    left: 0;
+    z-index: 10040;
+    overflow: auto;
+    overflow-y: auto;
+}*/
 
 .modal.fade .modal-dialog {
   -webkit-transform: translate(0, -25%);
@@ -5639,15 +5658,65 @@ body.modal-open,
 }
 
 .modal-dialog {
+    position: absolute;
+    top: 50% !important;
+    transform: translate(0, -50%) !important;
+    -ms-transform: translate(0, -50%) !important;
+    -webkit-transform: translate(0, -50%) !important;
+    margin: auto 5%;
+    width: 90%;
+    height: 80%;
+} 
+
+/*.modal-dialog {
+    position: absolute;
+    left: 50%;
+    /* now you must set a margin left under zero - value is a half width your window */
+    margin-left: -700px;
+    /* this same situation is with height - example */
+    height: 500px;
+    top: 50%;
+    margin-top: -250px;
+}*/
+
+/*.modal-sss-dialog {
+    position: absolute;
+    margin-left: 200px;
+    height: 500px;
+    top: 50%;
+    margin-top: -250px;
+}*/
+
+/*.modal-dialog {
   z-index: 1050;
   width: auto;
   padding: 10px;
   margin-right: auto;
   margin-left: auto;
-}
+}*/
+
+/*.modal-dialog {
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    bottom: 0;
+    left: 0;
+    z-index: 10040;
+    overflow: auto;
+    overflow-y: auto;
+}*/
 
 .modal-content {
-  position: relative;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/*.modal-content {
+  position:  inherit;
   background-color: #ffffff;
   border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -5656,7 +5725,7 @@ body.modal-open,
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
           box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
-}
+}*/
 
 .modal-backdrop {
   position: fixed;
@@ -5694,16 +5763,31 @@ body.modal-open,
 }
 
 .modal-body {
-  position: relative;
-  padding: 20px;
+    position: absolute;
+    top: 45px;
+    // height of header bottom:45px;
+    // height of footer left:0;
+    right: 0;
+    overflow-y: auto;
 }
 
+/*.modal-body {
+  position: relative;
+  padding: 20px;
+}*/
+
 .modal-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+/*.modal-footer {
   padding: 19px 20px 20px;
   margin-top: 15px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
-}
+}*/
 
 .modal-footer:before,
 .modal-footer:after {
@@ -5739,18 +5823,40 @@ body.modal-open,
 }
 
 @media screen and (min-width: 768px) {
-  .modal-dialog {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+  /*.modal-dialog {
     right: auto;
     left: 50%;
-    width: 600px;
+    width: 624px;
     padding-top: 30px;
     padding-bottom: 30px;
-  }
-  .modal-content {
-    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }*/
+    /*@media screen and (min-width: 768px) {
+        .modal-dialog {
+            right: auto;
+            left: 50%;
+            width: 600px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }*/
+
+        .modal-content {
+            -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  }
-}
+        }
+    }
 
 .tooltip {
   position: absolute;
@@ -6322,6 +6428,12 @@ td.visible-xs {
   td.visible-xs.visible-lg {
     display: table-cell !important;
   }
+}
+
+@media (max-width: @screen-xs-min) {
+    .modal-xs {
+        width: @modal-sm;
+    }
 }
 
 .visible-sm {

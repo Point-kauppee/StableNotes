@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Tallitietokanta</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -24,6 +24,14 @@
         window.appInsights=appInsights;
         appInsights.trackPageView();
     </script>
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
     <div class="jumbotron text-center">
@@ -35,19 +43,21 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Alkuun", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Etusivu", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Tietoja", "About", "Home")</li>
+                        <li>@Html.ActionLink("Yhteystiedot", "Contact", "Home")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
+
+                    <h2>TALLITIETOKANTA</h2>
                 </div>
                 @*Left sidebar*@
                 <div class="w3-sidebar w3-white w3-bar-block <w3-collapse w3-card-2" style="width:7%;left:0" border="10">
-                    <h3 class="w3-bar-item">Linkit</h3>
+                    @*<h3 class="w3-bar-item">Linkit</h3>*@
                     @* <input type="image" src="~/Images/talli.png" onsubmit="submit();" />*@
                     @* <a href="~/Stable/Index3" title="Talli" style="margin-left:25%"> <img border="0" alt="W3Schools" src="~/Images/talli.png" width="40" height="40"></a>*@
 
@@ -57,7 +67,10 @@
                     <a href="~/Horse/Index" title="Hevonen" style="margin-left:25%"><img src="~/Images/hevonen.png" class="img-responsive" alt="Cinque Terre" width="40" height="40"></a>
                        @* <br />*@
                     <a href="~/Medicine/Index" title="Lääkitys" style="margin-left:25%"><img src="~/Images/Lääkitys.png" class="img-responsive" alt="Cinque Terre" width="40" height="40"></a>
-                        @*<br />
+                    <a href="~/Training/Index" title="Treeni" style="margin-left:25%"><img src="~/Images/Treeni.png" class="img-responsive" alt="Cinque Terre" width="40" height="40"></a>
+                    @*<br />
+
+
             <br />
             <a href="~/Horse/Index" title="Hevonen" style="margin-left:25%"> <img border="0" src="~/Images/hevonen.png" width="40" height="40"></a>
             <br />
@@ -72,10 +85,11 @@
         </div>
     </div>
         <div class="container body-content" style="margin-left:15%">
+            <img src="~/Images/Taustakuva.png" alt="Kaverukset" style="width:204px;height:128px;">
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                <p>&copy; @DateTime.Now.Year - Tallitietokanta</p>
             </footer>
         </div>
 

@@ -10,7 +10,7 @@
             <PropertyRef Name="ActionId" />
           </Key>
           <Property Name="ActionId" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Date" Type="date" />
+          <Property Name="Date" Type="datetime" />
           <Property Name="Start" Type="datetime" />
           <Property Name="End" Type="datetime" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
@@ -43,8 +43,6 @@
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonId" Type="nvarchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Event">
           <Key>
             <PropertyRef Name="id" />
@@ -96,10 +94,10 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
             <PropertyRef Name="HorseId" />
           </Key>
           <Property Name="HorseId" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Registernumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="URL" Type="nvarchar" MaxLength="100" />
-          <Property Name="Note" Type="nvarchar" MaxLength="100" />
+          <Property Name="Horsename" Type="nvarchar" MaxLength="50" />
+          <Property Name="Horseregisternumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="HorseURL" Type="nvarchar" MaxLength="100" />
+          <Property Name="Horsenote" Type="nvarchar" MaxLength="100" />
           <Property Name="Created" Type="datetime" />
           <Property Name="StableId" Type="nvarchar" MaxLength="10" />
           <Property Name="PersonId" Type="nvarchar" MaxLength="10" />
@@ -116,16 +114,6 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
           <Property Name="URL" Type="nvarchar" MaxLength="100" />
           <Property Name="Withdrawalperiod" Type="nvarchar" MaxLength="50" />
           <Property Name="Purchaced" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Person">
-          <Key>
-            <PropertyRef Name="PersonId" />
-          </Key>
-          <Property Name="PersonId" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Firstname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Lastname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Created" Type="datetime" />
-          <Property Name="StableId" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Phone">
           <Key>
@@ -156,17 +144,6 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="Quantity" Type="nvarchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Role" Type="nvarchar" MaxLength="20" />
-          <Property Name="PersonId" Type="nvarchar" MaxLength="10" />
-          <Property Name="Created" Type="datetime" />
         </EntityType>
         <Association Name="FK_Action_ToTable">
           <End Role="Horse" Type="Self.Horse" Multiplicity="0..1" />
@@ -252,18 +229,6 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Address_ToTable">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Address_ToTable_1">
           <End Role="Stable" Type="Self.Stable" Multiplicity="0..1" />
           <End Role="Address" Type="Self.Address" Multiplicity="*" />
@@ -273,18 +238,6 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
             </Principal>
             <Dependent Role="Address">
               <PropertyRef Name="StableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Care_ToTable">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Care" Type="Self.Care" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Care">
-              <PropertyRef Name="PersonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -300,100 +253,19 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Horse_ToTable_1">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Horse" Type="Self.Horse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Horse">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Horse_ToTable_2">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Horse" Type="Self.Horse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Horse">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Person_ToTable">
-          <End Role="Stable" Type="Self.Stable" Multiplicity="0..1" />
-          <End Role="Person" Type="Self.Person" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stable">
-              <PropertyRef Name="StableId" />
-            </Principal>
-            <Dependent Role="Person">
-              <PropertyRef Name="StableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Phone_ToTable">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Phone">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stable_ToTable">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Stable" Type="Self.Stable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Stable">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_ToTable">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="kauppeedbModelStoreContainer">
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Care" EntityType="Self.Care" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Foodsupplement" EntityType="Self.Foodsupplement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hoofing" EntityType="Self.Hoofing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horse" EntityType="Self.Horse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Phone" EntityType="Self.Phone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stable" EntityType="Self.Stable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Event" EntityType="Self.Event" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Event].[id] AS [id], 
-    [Event].[text] AS [text], 
-    [Event].[eventstart] AS [eventstart], 
-    [Event].[eventend] AS [eventend]
-    FROM [dbo].[Event] AS [Event]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Action_ToTable" Association="Self.FK_Action_ToTable">
             <End Role="Horse" EntitySet="Horse" />
             <End Role="Action" EntitySet="Action" />
@@ -422,57 +294,75 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
             <End Role="Training" EntitySet="Training" />
             <End Role="Action" EntitySet="Action" />
           </AssociationSet>
-          <AssociationSet Name="FK_Address_ToTable" Association="Self.FK_Address_ToTable">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Address" EntitySet="Address" />
-          </AssociationSet>
           <AssociationSet Name="FK_Address_ToTable_1" Association="Self.FK_Address_ToTable_1">
             <End Role="Stable" EntitySet="Stable" />
             <End Role="Address" EntitySet="Address" />
           </AssociationSet>
-          <AssociationSet Name="FK_Care_ToTable" Association="Self.FK_Care_ToTable">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Care" EntitySet="Care" />
-          </AssociationSet>
           <AssociationSet Name="FK_Horse_ToTable" Association="Self.FK_Horse_ToTable">
             <End Role="Stable" EntitySet="Stable" />
             <End Role="Horse" EntitySet="Horse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Horse_ToTable_1" Association="Self.FK_Horse_ToTable_1">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Horse" EntitySet="Horse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Horse_ToTable_2" Association="Self.FK_Horse_ToTable_2">
-            <End Role="User" EntitySet="User" />
-            <End Role="Horse" EntitySet="Horse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Person_ToTable" Association="Self.FK_Person_ToTable">
-            <End Role="Stable" EntitySet="Stable" />
-            <End Role="Person" EntitySet="Person" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Phone_ToTable" Association="Self.FK_Phone_ToTable">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Phone" EntitySet="Phone" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stable_ToTable" Association="Self.FK_Stable_ToTable">
-            <End Role="User" EntitySet="User" />
-            <End Role="Stable" EntitySet="Stable" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_ToTable" Association="Self.FK_User_ToTable">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="kauppeedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="kauppeedbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Action" EntityType="kauppeedbModel.Action" />
+          <EntitySet Name="Address" EntityType="kauppeedbModel.Address" />
+          <EntitySet Name="Care" EntityType="kauppeedbModel.Care" />
+          <EntitySet Name="Event" EntityType="kauppeedbModel.Event" />
+          <EntitySet Name="Food" EntityType="kauppeedbModel.Food" />
+          <EntitySet Name="Foodsupplement" EntityType="kauppeedbModel.Foodsupplement" />
+          <EntitySet Name="Hoofing" EntityType="kauppeedbModel.Hoofing" />
+          <EntitySet Name="Horse" EntityType="kauppeedbModel.Horse" />
+          <EntitySet Name="Medicine" EntityType="kauppeedbModel.Medicine" />
+          <EntitySet Name="Phone" EntityType="kauppeedbModel.Phone" />
+          <EntitySet Name="Stable" EntityType="kauppeedbModel.Stable" />
+          <EntitySet Name="Training" EntityType="kauppeedbModel.Training" />
+          <AssociationSet Name="FK_Action_ToTable" Association="kauppeedbModel.FK_Action_ToTable">
+            <End Role="Horse" EntitySet="Horse" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_ToTable_1" Association="kauppeedbModel.FK_Action_ToTable_1">
+            <End Role="Hoofing" EntitySet="Hoofing" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_ToTable_2" Association="kauppeedbModel.FK_Action_ToTable_2">
+            <End Role="Foodsupplement" EntitySet="Foodsupplement" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_ToTable_3" Association="kauppeedbModel.FK_Action_ToTable_3">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_ToTable_4" Association="kauppeedbModel.FK_Action_ToTable_4">
+            <End Role="Care" EntitySet="Care" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_ToTable_5" Association="kauppeedbModel.FK_Action_ToTable_5">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_ToTable_6" Association="kauppeedbModel.FK_Action_ToTable_6">
+            <End Role="Training" EntitySet="Training" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_ToTable_1" Association="kauppeedbModel.FK_Address_ToTable_1">
+            <End Role="Stable" EntitySet="Stable" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horse_ToTable" Association="kauppeedbModel.FK_Horse_ToTable">
+            <End Role="Stable" EntitySet="Stable" />
+            <End Role="Horse" EntitySet="Horse" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Action">
           <Key>
             <PropertyRef Name="ActionId" />
           </Key>
-          <Property Name="ActionId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ActionId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Start" Type="DateTime" Precision="3" />
           <Property Name="End" Type="DateTime" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -483,165 +373,36 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
           <Property Name="CareId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="MedicineId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="TrainingId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Horse" Relationship="Self.FK_Action_ToTable" FromRole="Action" ToRole="Horse" />
-          <NavigationProperty Name="Hoofing" Relationship="Self.FK_Action_ToTable_1" FromRole="Action" ToRole="Hoofing" />
-          <NavigationProperty Name="Foodsupplement" Relationship="Self.FK_Action_ToTable_2" FromRole="Action" ToRole="Foodsupplement" />
-          <NavigationProperty Name="Food" Relationship="Self.FK_Action_ToTable_3" FromRole="Action" ToRole="Food" />
-          <NavigationProperty Name="Care" Relationship="Self.FK_Action_ToTable_4" FromRole="Action" ToRole="Care" />
-          <NavigationProperty Name="Medicine" Relationship="Self.FK_Action_ToTable_5" FromRole="Action" ToRole="Medicine" />
+          <NavigationProperty Name="Horse" Relationship="kauppeedbModel.FK_Action_ToTable" FromRole="Action" ToRole="Horse" />
+          <NavigationProperty Name="Hoofing" Relationship="kauppeedbModel.FK_Action_ToTable_1" FromRole="Action" ToRole="Hoofing" />
+          <NavigationProperty Name="Foodsupplement" Relationship="kauppeedbModel.FK_Action_ToTable_2" FromRole="Action" ToRole="Foodsupplement" />
+          <NavigationProperty Name="Food" Relationship="kauppeedbModel.FK_Action_ToTable_3" FromRole="Action" ToRole="Food" />
+          <NavigationProperty Name="Care" Relationship="kauppeedbModel.FK_Action_ToTable_4" FromRole="Action" ToRole="Care" />
+          <NavigationProperty Name="Medicine" Relationship="kauppeedbModel.FK_Action_ToTable_5" FromRole="Action" ToRole="Medicine" />
           <NavigationProperty Name="Training" Relationship="kauppeedbModel.FK_Action_ToTable_6" FromRole="Action" ToRole="Training" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressId" />
           </Key>
-          <Property Name="AddressId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Streetname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Postnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Community" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="StableId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Address_ToTable" FromRole="Address" ToRole="Person" />
-          <NavigationProperty Name="Stable" Relationship="Self.FK_Address_ToTable_1" FromRole="Address" ToRole="Stable" />
+          <NavigationProperty Name="Stable" Relationship="kauppeedbModel.FK_Address_ToTable_1" FromRole="Address" ToRole="Stable" />
         </EntityType>
         <EntityType Name="Care">
           <Key>
             <PropertyRef Name="CareId" />
           </Key>
-          <Property Name="CareId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CareId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable_4" FromRole="Care" ToRole="Action" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Care_ToTable" FromRole="Care" ToRole="Person" />
-        </EntityType>
-        <EntityType Name="Food">
-          <Key>
-            <PropertyRef Name="FoodId" />
-          </Key>
-          <Property Name="FoodId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Purchaced" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable_3" FromRole="Food" ToRole="Action" />
-        </EntityType>
-        <EntityType Name="Foodsupplement">
-          <Key>
-            <PropertyRef Name="FoodsupplementId" />
-          </Key>
-          <Property Name="FoodsupplementId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Withdrawalperiod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Purchaced" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable_2" FromRole="Foodsupplement" ToRole="Action" />
-        </EntityType>
-        <EntityType Name="Hoofing">
-          <Key>
-            <PropertyRef Name="HoofingId" />
-          </Key>
-          <Property Name="HoofingId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Frontshoe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Frontsize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Frontangle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Frontlength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Backshoe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Backsize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Backangle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Backlength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable_1" FromRole="Hoofing" ToRole="Action" />
-        </EntityType>
-        <EntityType Name="Horse">
-          <Key>
-            <PropertyRef Name="HorseId" />
-          </Key>
-          <Property Name="HorseId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Registernumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="StableId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable" FromRole="Horse" ToRole="Action" />
-          <NavigationProperty Name="Stable" Relationship="Self.FK_Horse_ToTable" FromRole="Horse" ToRole="Stable" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Horse_ToTable_1" FromRole="Horse" ToRole="Person" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Horse_ToTable_2" FromRole="Horse" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Medicine">
-          <Key>
-            <PropertyRef Name="MedicineId" />
-          </Key>
-          <Property Name="MedicineId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Withdrawalperiod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Purchaced" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_ToTable_5" FromRole="Medicine" ToRole="Action" />
-        </EntityType>
-        <EntityType Name="Person">
-          <Key>
-            <PropertyRef Name="PersonId" />
-          </Key>
-          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="StableId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Address" Relationship="Self.FK_Address_ToTable" FromRole="Person" ToRole="Address" />
-          <NavigationProperty Name="Care" Relationship="Self.FK_Care_ToTable" FromRole="Person" ToRole="Care" />
-          <NavigationProperty Name="Horse" Relationship="Self.FK_Horse_ToTable_1" FromRole="Person" ToRole="Horse" />
-          <NavigationProperty Name="Stable" Relationship="Self.FK_Person_ToTable" FromRole="Person" ToRole="Stable" />
-          <NavigationProperty Name="Phone" Relationship="Self.FK_Phone_ToTable" FromRole="Person" ToRole="Phone" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_ToTable" FromRole="Person" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Phone">
-          <Key>
-            <PropertyRef Name="PhoneId" />
-          </Key>
-          <Property Name="PhoneId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Number_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Number_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Phone_ToTable" FromRole="Phone" ToRole="Person" />
-        </EntityType>
-        <EntityType Name="Stable">
-          <Key>
-            <PropertyRef Name="StableId" />
-          </Key>
-          <Property Name="StableId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Registernumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Address" Relationship="Self.FK_Address_ToTable_1" FromRole="Stable" ToRole="Address" />
-          <NavigationProperty Name="Horse" Relationship="Self.FK_Horse_ToTable" FromRole="Stable" ToRole="Horse" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Person_ToTable" FromRole="Stable" ToRole="Person" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Stable_ToTable" FromRole="Stable" ToRole="User" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Horse" Relationship="Self.FK_Horse_ToTable_2" FromRole="User" ToRole="Horse" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_User_ToTable" FromRole="User" ToRole="Person" />
-          <NavigationProperty Name="Stable" Relationship="Self.FK_Stable_ToTable" FromRole="User" ToRole="Stable" />
+          <NavigationProperty Name="Action" Relationship="kauppeedbModel.FK_Action_ToTable_4" FromRole="Care" ToRole="Action" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -652,282 +413,98 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
           <Property Name="eventstart" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="eventend" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_Action_ToTable">
-          <End Role="Horse" Type="Self.Horse" Multiplicity="0..1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Horse">
-              <PropertyRef Name="HorseId" />
-            </Principal>
-            <Dependent Role="Action">
-              <PropertyRef Name="HorseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Action_ToTable_1">
-          <End Role="Hoofing" Type="Self.Hoofing" Multiplicity="0..1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hoofing">
-              <PropertyRef Name="HoofingId" />
-            </Principal>
-            <Dependent Role="Action">
-              <PropertyRef Name="HoofingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Action_ToTable_2">
-          <End Role="Foodsupplement" Type="Self.Foodsupplement" Multiplicity="0..1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Foodsupplement">
-              <PropertyRef Name="FoodsupplementId" />
-            </Principal>
-            <Dependent Role="Action">
-              <PropertyRef Name="FoodsupplementId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Action_ToTable_3">
-          <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Food">
-              <PropertyRef Name="FoodId" />
-            </Principal>
-            <Dependent Role="Action">
-              <PropertyRef Name="FoodId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Action_ToTable_4">
-          <End Role="Care" Type="Self.Care" Multiplicity="0..1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Care">
-              <PropertyRef Name="CareId" />
-            </Principal>
-            <Dependent Role="Action">
-              <PropertyRef Name="CareId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Action_ToTable_5">
-          <End Role="Medicine" Type="Self.Medicine" Multiplicity="0..1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Medicine">
-              <PropertyRef Name="MedicineId" />
-            </Principal>
-            <Dependent Role="Action">
-              <PropertyRef Name="MedicineId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Address_ToTable">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Address_ToTable_1">
-          <End Role="Stable" Type="Self.Stable" Multiplicity="0..1" />
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stable">
-              <PropertyRef Name="StableId" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="StableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Care_ToTable">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Care" Type="Self.Care" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Care">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Horse_ToTable">
-          <End Role="Stable" Type="Self.Stable" Multiplicity="0..1" />
-          <End Role="Horse" Type="Self.Horse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stable">
-              <PropertyRef Name="StableId" />
-            </Principal>
-            <Dependent Role="Horse">
-              <PropertyRef Name="StableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Horse_ToTable_1">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Horse" Type="Self.Horse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Horse">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Horse_ToTable_2">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Horse" Type="Self.Horse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Horse">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Person_ToTable">
-          <End Role="Stable" Type="Self.Stable" Multiplicity="0..1" />
-          <End Role="Person" Type="Self.Person" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stable">
-              <PropertyRef Name="StableId" />
-            </Principal>
-            <Dependent Role="Person">
-              <PropertyRef Name="StableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Phone_ToTable">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Phone">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_ToTable">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="PersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stable_ToTable">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Stable" Type="Self.Stable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Stable">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="kauppeedbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Action" EntityType="Self.Action" />
-          <EntitySet Name="Address" EntityType="Self.Address" />
-          <EntitySet Name="Care" EntityType="Self.Care" />
-          <EntitySet Name="Food" EntityType="Self.Food" />
-          <EntitySet Name="Foodsupplement" EntityType="Self.Foodsupplement" />
-          <EntitySet Name="Hoofing" EntityType="Self.Hoofing" />
-          <EntitySet Name="Horse" EntityType="Self.Horse" />
-          <EntitySet Name="Medicine" EntityType="Self.Medicine" />
-          <EntitySet Name="Person" EntityType="Self.Person" />
-          <EntitySet Name="Phone" EntityType="Self.Phone" />
-          <EntitySet Name="Stable" EntityType="Self.Stable" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="Event" EntityType="Self.Event" />
-          <AssociationSet Name="FK_Action_ToTable" Association="Self.FK_Action_ToTable">
-            <End Role="Horse" EntitySet="Horse" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_ToTable_1" Association="Self.FK_Action_ToTable_1">
-            <End Role="Hoofing" EntitySet="Hoofing" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_ToTable_2" Association="Self.FK_Action_ToTable_2">
-            <End Role="Foodsupplement" EntitySet="Foodsupplement" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_ToTable_3" Association="Self.FK_Action_ToTable_3">
-            <End Role="Food" EntitySet="Food" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_ToTable_4" Association="Self.FK_Action_ToTable_4">
-            <End Role="Care" EntitySet="Care" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_ToTable_5" Association="Self.FK_Action_ToTable_5">
-            <End Role="Medicine" EntitySet="Medicine" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Address_ToTable" Association="Self.FK_Address_ToTable">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Address" EntitySet="Address" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Address_ToTable_1" Association="Self.FK_Address_ToTable_1">
-            <End Role="Stable" EntitySet="Stable" />
-            <End Role="Address" EntitySet="Address" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Care_ToTable" Association="Self.FK_Care_ToTable">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Care" EntitySet="Care" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Horse_ToTable" Association="Self.FK_Horse_ToTable">
-            <End Role="Stable" EntitySet="Stable" />
-            <End Role="Horse" EntitySet="Horse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Horse_ToTable_1" Association="Self.FK_Horse_ToTable_1">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Horse" EntitySet="Horse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Horse_ToTable_2" Association="Self.FK_Horse_ToTable_2">
-            <End Role="User" EntitySet="User" />
-            <End Role="Horse" EntitySet="Horse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Person_ToTable" Association="Self.FK_Person_ToTable">
-            <End Role="Stable" EntitySet="Stable" />
-            <End Role="Person" EntitySet="Person" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Phone_ToTable" Association="Self.FK_Phone_ToTable">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Phone" EntitySet="Phone" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_ToTable" Association="Self.FK_User_ToTable">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stable_ToTable" Association="Self.FK_Stable_ToTable">
-            <End Role="User" EntitySet="User" />
-            <End Role="Stable" EntitySet="Stable" />
-          </AssociationSet>
-          <EntitySet Name="Training" EntityType="kauppeedbModel.Training" />
-          <AssociationSet Name="FK_Action_ToTable_6" Association="kauppeedbModel.FK_Action_ToTable_6">
-            <End Role="Training" EntitySet="Training" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-        </EntityContainer>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="FoodId" />
+          </Key>
+          <Property Name="FoodId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Purchaced" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Action" Relationship="kauppeedbModel.FK_Action_ToTable_3" FromRole="Food" ToRole="Action" />
+        </EntityType>
+        <EntityType Name="Foodsupplement">
+          <Key>
+            <PropertyRef Name="FoodsupplementId" />
+          </Key>
+          <Property Name="FoodsupplementId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Withdrawalperiod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Purchaced" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Action" Relationship="kauppeedbModel.FK_Action_ToTable_2" FromRole="Foodsupplement" ToRole="Action" />
+        </EntityType>
+        <EntityType Name="Hoofing">
+          <Key>
+            <PropertyRef Name="HoofingId" />
+          </Key>
+          <Property Name="HoofingId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Frontshoe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Frontsize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Frontangle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Frontlength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Backshoe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Backsize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Backangle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Backlength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Action" Relationship="kauppeedbModel.FK_Action_ToTable_1" FromRole="Hoofing" ToRole="Action" />
+        </EntityType>
+        <EntityType Name="Horse">
+          <Key>
+            <PropertyRef Name="HorseId" />
+          </Key>
+          <Property Name="HorseId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Horsename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Horseregisternumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HorseURL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Horsenote" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="StableId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Action" Relationship="kauppeedbModel.FK_Action_ToTable" FromRole="Horse" ToRole="Action" />
+          <NavigationProperty Name="Stable" Relationship="kauppeedbModel.FK_Horse_ToTable" FromRole="Horse" ToRole="Stable" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="MedicineId" />
+          </Key>
+          <Property Name="MedicineId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Withdrawalperiod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Purchaced" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Action" Relationship="kauppeedbModel.FK_Action_ToTable_5" FromRole="Medicine" ToRole="Action" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="PhoneId" />
+          </Key>
+          <Property Name="PhoneId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Stable">
+          <Key>
+            <PropertyRef Name="StableId" />
+          </Key>
+          <Property Name="StableId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Registernumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Address" Relationship="kauppeedbModel.FK_Address_ToTable_1" FromRole="Stable" ToRole="Address" />
+          <NavigationProperty Name="Horse" Relationship="kauppeedbModel.FK_Horse_ToTable" FromRole="Stable" ToRole="Horse" />
+        </EntityType>
         <EntityType Name="Training">
           <Key>
             <PropertyRef Name="TrainingId" />
@@ -938,6 +515,78 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Action" Relationship="kauppeedbModel.FK_Action_ToTable_6" FromRole="Training" ToRole="Action" />
         </EntityType>
+        <Association Name="FK_Action_ToTable">
+          <End Type="kauppeedbModel.Horse" Role="Horse" Multiplicity="0..1" />
+          <End Type="kauppeedbModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horse">
+              <PropertyRef Name="HorseId" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="HorseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Action_ToTable_1">
+          <End Type="kauppeedbModel.Hoofing" Role="Hoofing" Multiplicity="0..1" />
+          <End Type="kauppeedbModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hoofing">
+              <PropertyRef Name="HoofingId" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="HoofingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Action_ToTable_2">
+          <End Type="kauppeedbModel.Foodsupplement" Role="Foodsupplement" Multiplicity="0..1" />
+          <End Type="kauppeedbModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Foodsupplement">
+              <PropertyRef Name="FoodsupplementId" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="FoodsupplementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Action_ToTable_3">
+          <End Type="kauppeedbModel.Food" Role="Food" Multiplicity="0..1" />
+          <End Type="kauppeedbModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="FoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Action_ToTable_4">
+          <End Type="kauppeedbModel.Care" Role="Care" Multiplicity="0..1" />
+          <End Type="kauppeedbModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Care">
+              <PropertyRef Name="CareId" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="CareId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Action_ToTable_5">
+          <End Type="kauppeedbModel.Medicine" Role="Medicine" Multiplicity="0..1" />
+          <End Type="kauppeedbModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="MedicineId" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="MedicineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Action_ToTable_6">
           <End Type="kauppeedbModel.Training" Role="Training" Multiplicity="0..1" />
           <End Type="kauppeedbModel.Action" Role="Action" Multiplicity="*" />
@@ -950,7 +599,31 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Address_ToTable_1">
+          <End Type="kauppeedbModel.Stable" Role="Stable" Multiplicity="0..1" />
+          <End Type="kauppeedbModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stable">
+              <PropertyRef Name="StableId" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="StableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horse_ToTable">
+          <End Type="kauppeedbModel.Stable" Role="Stable" Multiplicity="0..1" />
+          <End Type="kauppeedbModel.Horse" Role="Horse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stable">
+              <PropertyRef Name="StableId" />
+            </Principal>
+            <Dependent Role="Horse">
+              <PropertyRef Name="StableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -959,165 +632,142 @@ warning 6002: The table/view 'kauppeedb.dbo.Event' does not have a primary key d
           <EntitySetMapping Name="Action">
             <EntityTypeMapping TypeName="kauppeedbModel.Action">
               <MappingFragment StoreEntitySet="Action">
-                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Start" ColumnName="Start" />
-                <ScalarProperty Name="End" ColumnName="End" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="HorseId" ColumnName="HorseId" />
-                <ScalarProperty Name="HoofingId" ColumnName="HoofingId" />
-                <ScalarProperty Name="FoodsupplementId" ColumnName="FoodsupplementId" />
-                <ScalarProperty Name="FoodId" ColumnName="FoodId" />
-                <ScalarProperty Name="CareId" ColumnName="CareId" />
-                <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
                 <ScalarProperty Name="TrainingId" ColumnName="TrainingId" />
+                <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
+                <ScalarProperty Name="CareId" ColumnName="CareId" />
+                <ScalarProperty Name="FoodId" ColumnName="FoodId" />
+                <ScalarProperty Name="FoodsupplementId" ColumnName="FoodsupplementId" />
+                <ScalarProperty Name="HoofingId" ColumnName="HoofingId" />
+                <ScalarProperty Name="HorseId" ColumnName="HorseId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Address">
             <EntityTypeMapping TypeName="kauppeedbModel.Address">
               <MappingFragment StoreEntitySet="Address">
-                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
-                <ScalarProperty Name="Streetname" ColumnName="Streetname" />
-                <ScalarProperty Name="Postnumber" ColumnName="Postnumber" />
-                <ScalarProperty Name="Community" ColumnName="Community" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="StableId" ColumnName="StableId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Community" ColumnName="Community" />
+                <ScalarProperty Name="Postnumber" ColumnName="Postnumber" />
+                <ScalarProperty Name="Streetname" ColumnName="Streetname" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Care">
             <EntityTypeMapping TypeName="kauppeedbModel.Care">
               <MappingFragment StoreEntitySet="Care">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="CareId" ColumnName="CareId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Food">
-            <EntityTypeMapping TypeName="kauppeedbModel.Food">
-              <MappingFragment StoreEntitySet="Food">
-                <ScalarProperty Name="FoodId" ColumnName="FoodId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="Purchaced" ColumnName="Purchaced" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Foodsupplement">
-            <EntityTypeMapping TypeName="kauppeedbModel.Foodsupplement">
-              <MappingFragment StoreEntitySet="Foodsupplement">
-                <ScalarProperty Name="FoodsupplementId" ColumnName="FoodsupplementId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="Withdrawalperiod" ColumnName="Withdrawalperiod" />
-                <ScalarProperty Name="Purchaced" ColumnName="Purchaced" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Hoofing">
-            <EntityTypeMapping TypeName="kauppeedbModel.Hoofing">
-              <MappingFragment StoreEntitySet="Hoofing">
-                <ScalarProperty Name="HoofingId" ColumnName="HoofingId" />
-                <ScalarProperty Name="Frontshoe" ColumnName="Frontshoe" />
-                <ScalarProperty Name="Frontsize" ColumnName="Frontsize" />
-                <ScalarProperty Name="Frontangle" ColumnName="Frontangle" />
-                <ScalarProperty Name="Frontlength" ColumnName="Frontlength" />
-                <ScalarProperty Name="Backshoe" ColumnName="Backshoe" />
-                <ScalarProperty Name="Backsize" ColumnName="Backsize" />
-                <ScalarProperty Name="Backangle" ColumnName="Backangle" />
-                <ScalarProperty Name="Backlength" ColumnName="Backlength" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Horse">
-            <EntityTypeMapping TypeName="kauppeedbModel.Horse">
-              <MappingFragment StoreEntitySet="Horse">
-                <ScalarProperty Name="HorseId" ColumnName="HorseId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Registernumber" ColumnName="Registernumber" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="StableId" ColumnName="StableId" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Medicine">
-            <EntityTypeMapping TypeName="kauppeedbModel.Medicine">
-              <MappingFragment StoreEntitySet="Medicine">
-                <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="Withdrawalperiod" ColumnName="Withdrawalperiod" />
-                <ScalarProperty Name="Purchaced" ColumnName="Purchaced" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Person">
-            <EntityTypeMapping TypeName="kauppeedbModel.Person">
-              <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
-                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="StableId" ColumnName="StableId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Phone">
-            <EntityTypeMapping TypeName="kauppeedbModel.Phone">
-              <MappingFragment StoreEntitySet="Phone">
-                <ScalarProperty Name="PhoneId" ColumnName="PhoneId" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="Number_1" ColumnName="Number_1" />
-                <ScalarProperty Name="Number_2" ColumnName="Number_2" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stable">
-            <EntityTypeMapping TypeName="kauppeedbModel.Stable">
-              <MappingFragment StoreEntitySet="Stable">
-                <ScalarProperty Name="StableId" ColumnName="StableId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Registernumber" ColumnName="Registernumber" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="kauppeedbModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Event">
             <EntityTypeMapping TypeName="kauppeedbModel.Event">
               <MappingFragment StoreEntitySet="Event">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="eventstart" ColumnName="eventstart" />
                 <ScalarProperty Name="eventend" ColumnName="eventend" />
+                <ScalarProperty Name="eventstart" ColumnName="eventstart" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food">
+            <EntityTypeMapping TypeName="kauppeedbModel.Food">
+              <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="Purchaced" ColumnName="Purchaced" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FoodId" ColumnName="FoodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Foodsupplement">
+            <EntityTypeMapping TypeName="kauppeedbModel.Foodsupplement">
+              <MappingFragment StoreEntitySet="Foodsupplement">
+                <ScalarProperty Name="Purchaced" ColumnName="Purchaced" />
+                <ScalarProperty Name="Withdrawalperiod" ColumnName="Withdrawalperiod" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FoodsupplementId" ColumnName="FoodsupplementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hoofing">
+            <EntityTypeMapping TypeName="kauppeedbModel.Hoofing">
+              <MappingFragment StoreEntitySet="Hoofing">
+                <ScalarProperty Name="Backlength" ColumnName="Backlength" />
+                <ScalarProperty Name="Backangle" ColumnName="Backangle" />
+                <ScalarProperty Name="Backsize" ColumnName="Backsize" />
+                <ScalarProperty Name="Backshoe" ColumnName="Backshoe" />
+                <ScalarProperty Name="Frontlength" ColumnName="Frontlength" />
+                <ScalarProperty Name="Frontangle" ColumnName="Frontangle" />
+                <ScalarProperty Name="Frontsize" ColumnName="Frontsize" />
+                <ScalarProperty Name="Frontshoe" ColumnName="Frontshoe" />
+                <ScalarProperty Name="HoofingId" ColumnName="HoofingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horse">
+            <EntityTypeMapping TypeName="kauppeedbModel.Horse">
+              <MappingFragment StoreEntitySet="Horse">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="StableId" ColumnName="StableId" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Horsenote" ColumnName="Horsenote" />
+                <ScalarProperty Name="HorseURL" ColumnName="HorseURL" />
+                <ScalarProperty Name="Horseregisternumber" ColumnName="Horseregisternumber" />
+                <ScalarProperty Name="Horsename" ColumnName="Horsename" />
+                <ScalarProperty Name="HorseId" ColumnName="HorseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicine">
+            <EntityTypeMapping TypeName="kauppeedbModel.Medicine">
+              <MappingFragment StoreEntitySet="Medicine">
+                <ScalarProperty Name="Purchaced" ColumnName="Purchaced" />
+                <ScalarProperty Name="Withdrawalperiod" ColumnName="Withdrawalperiod" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phone">
+            <EntityTypeMapping TypeName="kauppeedbModel.Phone">
+              <MappingFragment StoreEntitySet="Phone">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Number_2" ColumnName="Number_2" />
+                <ScalarProperty Name="Number_1" ColumnName="Number_1" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="PhoneId" ColumnName="PhoneId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stable">
+            <EntityTypeMapping TypeName="kauppeedbModel.Stable">
+              <MappingFragment StoreEntitySet="Stable">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Registernumber" ColumnName="Registernumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StableId" ColumnName="StableId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

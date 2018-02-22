@@ -5,6 +5,12 @@
 
 
 @section scripts{
+@* Lisätty 5 alla olevaa riviä 16.08.-17 *@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
 <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
 
@@ -18,17 +24,17 @@
                    html += "<tr>" +
                        "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
                      "<td>" + horses[index].HorseId + "</td>" +
-                     "<td>" + horses[index].Name + "</td>" +
-                      "<td>" + horses[index].Registernumber + "</td>" +
-                      "<td>" + horses[index].URL + "</td>" +
-                      "<td>" + horses[index].Note + "</td>" +
-                      "<td>" + horses[index].Created + "</td>" +
+                     "<td>" + horses[index].Horsename + "</td>" +
+                       "<td>" + horses[index].Horseregisternumber + "</td>" +
+                       "<td>" + horses[index].HorseURL + "</td>" +
+                       "<td>" + horses[index].Horsenote + "</td>" +
                       "<td>" + horses[index].StableId + "</td>" +
                       "<td>" + horses[index].PersonId + "</td>" +
                       "<td>" + horses[index].UserId + "</td>" +
                       "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" + "</tr>\r\n";
                }
                $("#horseList tbody").html(html);
+               //$("#horseModalDialog tbody").html(html);
 
                //tietojen muokkaus
 
@@ -42,11 +48,10 @@
                        //kopioidaan tiedot ikkunaan
 
                        $("#horseModal_HorsId").val(horse.HorseId);
-                       $("#horseModal_Name").val(horse.Name);
-                       $("#horseModal_Regist").val(horse.Registernumber);
-                       $("#horseModal_url").val(horse.URL);
-                       $("#horseModal_Note").val(horse.Note);
-                       $("#horseModal_Creat").val(horse.Created);
+                       $("#horseModal_Name").val(horse.Horsename);
+                       $("#horseModal_Regist").val(horse.Horseregisternumber);
+                       $("#horseModal_url").val(horse.HorseURL);
+                       $("#horseModal_Note").val(horse.Horsenote);
                        $("#horseModal_StabId").val(horse.StableId);
                        $("#horseModal_PersId").val(horse.PersonId);
                        $("#horseModal_UseId").val(horse.UserId);
@@ -84,6 +89,14 @@
            });
        }
 
+        $(function () {
+            myFunction();
+            alert("Toimii");
+            //var input = document.getElementById('fname')
+            //var div = document.getElementById('divID');
+            //div.innerHTML = div.innerHTML + input.value;
+        });
+
        // sivun alustaminen
            $(function () {
                päivitäHevoslistaus();
@@ -95,7 +108,6 @@
                    $("#horseModal_Regist").val("");
                    $("#horseModal_url").val("");
                    $("#horseModal_Note").val("");
-                   $("#horseModal_Creat").val("");
                    $("#horseModal_StabId").val("");
                    $("#horseModal_PersId").val("");
                    $("#horseModal_UseId").val("");
@@ -111,11 +123,10 @@
                    //luetaan syötetyt kentät
                    var details = {
                        HorseId: $("#horseModal_HorsId").val(),
-                       Name: $("#horseModal_Name").val(),
-                       Registernumber: $("#horseModal_Regist").val(),
-                       URL: $("#horseModal_url").val(),
-                       Note: $("#horseModal_Note").val(),
-                       Created: $("#horseModal_Creat").val(),
+                       Horsename: $("#horseModal_Name").val(),
+                       Horseregisternumber: $("#horseModal_Regist").val(),
+                       HorseURL: $("#horseModal_url").val(),
+                       Horsenote: $("#horseModal_Note").val(),
                        StableId: $("#horseModal_StabId").val(),
                        PersonId: $("#horseModal_PersId").val(),
                        UserId: $("#horseModal_UseId").val()
@@ -171,7 +182,6 @@
                 <th>Numero</th>
                 <th>Linkki</th>
                 <th>Huomio</th>
-                <th>Luotu</th>
                 <th>Tallin Id</th>
                 <th>Henkilön Id</th>
                 <th>Käyttäjän Id</th>
@@ -181,57 +191,65 @@
 
     </table>
 </div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="horseModalDialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><span id="horseModalTitle">Muokkaa hevosta</span></h4>
-            </div>
-            <div class="modal-body">
-                @*<p>One fine body&hellip;</p>*@
-                <div class="row">
-                    <div class="col-md-3">Hevosen Id</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_HorsId" /></div>
+@*<div class="modal fade" id="horseModalDialog">*@
+    <div class="modal fade" tabindex="-1" role="dialog" id="horseModalDialog">
+        @*<div tabindex="-1" role="dialog" id="horseModalDialog">*@
+            @*<div class="left" tabindex="-1" role="dialog" id="horseModalDialog">*@
+            @* <div class="modal-dialog" role="document">*@
+            @*<div class="modal-dialog modal-lg" style="margin-left:-20%">*@
+                @*<div class="modal-dialog modal-sm" style="margin-left:-40%">*@
+        //<div class="modal-dialog modal-sm" align="center" style="margin-left:-30%">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        @*     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>&times;</button>
+                        <h4 class="modal-title" align="center"><span id="horseModalTitle">Muokkaa hevosta</span></h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        @*<p>One fine body&hellip;</p>*@
+                        <div class="row">
+                            <div class="col-md-5">Hevosen Id</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_HorsId" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">Hevosen nimi</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_Name" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">Hevosen nimi web</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_Web" onkeypress="myFunction()" /></div>
+                            <div id="button"><a href="https://heppa.hippos.fi/heppa/app">Log In</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">Hevosen rekisterinumero</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_Regist" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">Linkki</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_url" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">Muuta</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_Note" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">Tallin Id</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_StabId" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">Henkilön Id</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_PersId" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">Käyttäjän Id</div>
+                            <div class="col-md-6"><input class="form-control" id="horseModal_UseId" /></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:inherit">Sulje</button>
+                        <button type="button" class="btn btn-primary" id="horseModalSaveButton" style="float:inherit">Tallenna</button>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">Hevosen nimi</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_Name" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Hevosen rekisterinumero</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_Regist" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Linkki</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_url" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Muuta</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_Note" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Tapahtuma luotu</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_Creat" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Tallin Id</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_StabId" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Henkilön Id</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_PersId" /></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Käyttäjän Id</div>
-                    <div class="col-md-6"><input class="form-control" id="horseModal_UseId" /></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
-                <button type="button" class="btn btn-primary" id="horseModalSaveButton">Tallenna</button>
             </div>
         </div>
-    </div>
-</div>

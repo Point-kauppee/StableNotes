@@ -21,7 +21,6 @@ namespace StableNotes.Models
         public string PersonId { get; set; }
         public string StableId { get; set; }
     
-        public virtual Person Person { get; set; }
         public virtual Stable Stable { get; set; }
     }
 }

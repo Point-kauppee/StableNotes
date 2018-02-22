@@ -5,37 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0cabe9f30ced418f9567bf6c5836350d" Name="Diagram1">
-        <EntityTypeShape EntityType="kauppeedbModel.Action" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Address" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Care" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Food" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Foodsupplement" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Hoofing" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Horse" Width="1.5" PointX="10.5" PointY="16.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Medicine" Width="1.5" PointX="3" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Person" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Phone" Width="1.5" PointX="3" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Stable" Width="1.5" PointX="5.25" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.User" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="kauppeedbModel.Event" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_1" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_2" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_3" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_4" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_5" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Address_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Address_ToTable_1" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Care_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Horse_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Horse_ToTable_1" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Horse_ToTable_2" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Person_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Phone_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_User_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="kauppeedbModel.FK_Stable_ToTable" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="kauppeedbModel.Training" Width="1.5" PointX="5.375" PointY="4.875" />
+        <EntityTypeShape EntityType="kauppeedbModel.Action" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="kauppeedbModel.Address" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="kauppeedbModel.Care" Width="1.5" PointX="3" PointY="22.75" />
+        <EntityTypeShape EntityType="kauppeedbModel.Event" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="kauppeedbModel.Food" Width="1.5" PointX="3" PointY="16.875" />
+        <EntityTypeShape EntityType="kauppeedbModel.Foodsupplement" Width="1.5" PointX="3" PointY="9.875" />
+        <EntityTypeShape EntityType="kauppeedbModel.Hoofing" Width="1.5" PointX="3" PointY="13.125" />
+        <EntityTypeShape EntityType="kauppeedbModel.Horse" Width="1.5" PointX="3" PointY="2" />
+        <EntityTypeShape EntityType="kauppeedbModel.Medicine" Width="1.5" PointX="3" PointY="25.625" />
+        <EntityTypeShape EntityType="kauppeedbModel.Phone" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="kauppeedbModel.Stable" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="kauppeedbModel.Training" Width="1.5" PointX="3" PointY="20" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_1" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_2" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_3" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_4" />
+        <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_5" />
         <AssociationConnector Association="kauppeedbModel.FK_Action_ToTable_6" />
+        <AssociationConnector Association="kauppeedbModel.FK_Address_ToTable_1" />
+        <AssociationConnector Association="kauppeedbModel.FK_Horse_ToTable" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -59,11 +59,11 @@ namespace StableNotes.Controllers
                          select new
                          {
                              HorseId = c.HorseId,
-                             Name = c.Name,
-                             Registernumber = c.Registernumber,
-                             URL = c.URL,
-                             Note = c.Note,
-                             Created = c.Created,
+                             Horsename = c.Horsename,
+                             Horseregisternumber = c.Horseregisternumber,
+                             HorseURL = c.HorseURL,
+                             Horsenote = c.Horsenote,
+                             //Created = c.Created,
                              StableId = c.StableId,
                              PersonId = c.PersonId,
                              UserId = c.UserId
@@ -86,11 +86,11 @@ namespace StableNotes.Controllers
                          select new
                          {
                              HorseId = c.HorseId,
-                             Name = c.Name,
-                             Registernumber = c.Registernumber,
-                             URL = c.URL,
-                             Note = c.Note,
-                             Created = c.Created,
+                             Horsename = c.Horsename,
+                             Horseregisternumber = c.Horseregisternumber,
+                             HorseURL = c.HorseURL,
+                             Horsenote = c.Horsenote,
+                             //Created = c.Created,
                              StableId = c.StableId,
                              PersonId = c.PersonId,
                              UserId = c.UserId
@@ -117,13 +117,13 @@ namespace StableNotes.Controllers
                 // uuden lisäys, kopioidaan kentät -- uusi StableId tulee tietueelle automaattisesti kantaan
                 Horse dbItem = new Horse()
                 {
-                    HorseId = hors.Name.Substring(0, 5).Trim().ToUpper(),
+                    HorseId = hors.Horsename.Substring(0, 5).Trim().ToUpper(),
                     //HorseId = "testi",
-                    Name = hors.Name,
-                    Registernumber = hors.Registernumber,
-                    URL = hors.URL,
-                    Note = hors.Note,
-                    Created = hors.Created,
+                    Horsename = hors.Horsename,
+                    Horseregisternumber = hors.Horseregisternumber,
+                    HorseURL = hors.HorseURL,
+                    Horsenote = hors.Horsenote,
+                    //Created = hors.Created,
                     StableId = hors.StableId,
                     PersonId = hors.PersonId,
                     UserId =  hors.UserId
@@ -145,11 +145,11 @@ namespace StableNotes.Controllers
                 if (dbItem != null)
                 {
                     dbItem.HorseId = hors.HorseId;
-                    dbItem.Name = hors.Name;
-                    dbItem.Registernumber = hors.Registernumber;
-                    dbItem.URL = hors.URL;
-                    dbItem.Note = hors.Note;
-                    dbItem.Created = hors.Created;
+                    dbItem.Horsename = hors.Horsename;
+                    dbItem.Horseregisternumber = hors.Horseregisternumber;
+                    dbItem.HorseURL = hors.HorseURL;
+                    dbItem.Horsenote = hors.Horsenote;
+                    //dbItem.Created = hors.Created;
                     dbItem.StableId = hors.StableId;
                     dbItem.PersonId = hors.PersonId;
                     dbItem.UserId = hors.UserId;

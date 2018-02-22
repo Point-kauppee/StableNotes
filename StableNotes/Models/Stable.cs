@@ -19,7 +19,6 @@ namespace StableNotes.Models
         {
             this.Address = new HashSet<Address>();
             this.Horse = new HashSet<Horse>();
-            this.Person = new HashSet<Person>();
         }
     
         public string StableId { get; set; }
@@ -33,8 +32,5 @@ namespace StableNotes.Models
         public virtual ICollection<Address> Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Horse> Horse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Person> Person { get; set; }
-        public virtual User User { get; set; }
     }
 }

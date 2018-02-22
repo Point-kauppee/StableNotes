@@ -28,6 +28,5 @@ namespace StableNotes.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Action> Action { get; set; }
-        public virtual Person Person { get; set; }
     }
 }

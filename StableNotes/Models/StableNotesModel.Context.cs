@@ -28,16 +28,14 @@ namespace StableNotes.Models
         public virtual DbSet<Action> Action { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Care> Care { get; set; }
+        public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<Food> Food { get; set; }
         public virtual DbSet<Foodsupplement> Foodsupplement { get; set; }
         public virtual DbSet<Hoofing> Hoofing { get; set; }
         public virtual DbSet<Horse> Horse { get; set; }
         public virtual DbSet<Medicine> Medicine { get; set; }
-        public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Phone> Phone { get; set; }
         public virtual DbSet<Stable> Stable { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<Training> Training { get; set; }
     }
 }
